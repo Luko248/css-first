@@ -1,6 +1,0 @@
-{
-  "cSpell.words": ["modelcontextprotocol"],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "eslint.validate": ["javascript", "typescript"]
-}

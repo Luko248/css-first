@@ -1,25 +1,18 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import prettierPlugin from 'eslint-plugin-prettier';
-import prettierConfig from 'eslint-config-prettier'; // We still need this to apply its disabling rules
 
 export default tseslint.config(
   {
-    ignores: ['.bruno/', '.roo/', 'dist', 'logs', 'my_resources', 'node_modules/', 'src/**/*.js'],
+    ignores: ['dist/', 'node_modules/', 'src/**/*.js'],
   },
 
   eslint.configs.recommended,
-  ...tseslint.configs.recommended, // Apply recommended TS rules
+  ...tseslint.configs.recommended,
   {
-    rules: { '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }] },
-  },
-
-  // Prettier integration - MUST BE LAST to override other configs
-  {
-    plugins: { prettier: prettierPlugin },
-    rules: {
-      ...prettierConfig.rules, // Apply prettier-config to disable conflicting rules
-      'prettier/prettier': 'warn', // Report Prettier differences as warnings
+    rules: { 
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-console': 'warn',
     },
   },
 );

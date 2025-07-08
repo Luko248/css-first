@@ -1,60 +1,41 @@
 {
-  "name": "@srigi/mcp-google-images-search",
-  "description": "MCP server for searching images with Google",
+  "name": "mcp-css-first",
+  "description": "MCP server for CSS-first development with MDN integration",
   "license": "MIT",
-  "version": "0.2.0",
-  "bugs": {
-    "url": "https://github.com/srigi/mcp-google-images-search/issues"
-  },
-  "homepage": "https://github.com/srigi/mcp-google-images-search#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/srigi/mcp-google-images-search.git"
-  },
+  "version": "0.0.1",
   "keywords": [
-    "google",
-    "image",
-    "images",
     "modelcontextprotocol",
     "mcp",
-    "search"
+    "css",
+    "mdn",
+    "web-development"
   ],
   "bin": {
-    "mcp-google-images-search": "dist/cli.js"
+    "mcp-css-first": "dist/cli.js"
   },
   "files": [
     "dist/cli.js",
-    "logs",
     "src"
   ],
   "scripts": {
     "build": "ncc build src/index.ts --minify --out dist/ && echo '#!/usr/bin/env node' | cat - dist/index.js > dist/cli.js && chmod +x dist/cli.js",
-    "build:tsc": "tsc && tsc-alias",
-    "dev": "pnpm build:tsc && chokidar 'src/**/*.ts' -c 'tsc && tsc-alias'",
+    "dev": "tsc --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "tsc": "tsc -noEmit",
-    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "start": "node dist/cli.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "~1.13",
-    "winston": "~3.17",
     "zod": "~3.25"
   },
   "devDependencies": {
     "@eslint/js": "~9.29",
     "@types/node": "^24",
-    "@vercel/ncc": "~0.38",
-    "chokidar-cli": "~3.0",
+    "@vercel/ncc": "^0.38.3",
     "eslint": "~9.29",
-    "eslint-config-prettier": "~10.1",
-    "eslint-plugin-prettier": "~5.5",
-    "prettier": "~3.6",
-    "tsc-alias": "~1.8",
     "typescript": "~5.8",
-    "typescript-eslint": "~8.35",
-    "vitest": "~3.2"
+    "typescript-eslint": "~8.35"
   },
   "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
 }
