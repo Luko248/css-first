@@ -84,7 +84,12 @@ function getBrowserSupportPercentage(cssProperty: string): number {
     'transform': 94,
     'container-type': 75,
     'container-name': 75,
-    '@container': 75
+    '@container': 75,
+    '::scroll-button()': 15,
+    '::scroll-marker-group': 15,
+    '::scroll-marker': 15,
+    '::column': 15,
+    ':target-current': 20
   };
   
   return supportMap[cssProperty] || 80;

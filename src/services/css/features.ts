@@ -41,6 +41,14 @@ export const CSS_FEATURES: Record<string, CSSFeature> = {
     support_level: 'good',
     mdn_url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_overflow/CSS_carousels'
   },
+  'css-carousel-modern': {
+    name: 'Modern CSS Carousel with Pseudo-Elements',
+    category: CSSFeatureCategory.INTERACTION,
+    properties: ['::scroll-button()', '::scroll-marker-group', '::scroll-marker', '::column', ':target-current'],
+    description: 'Latest CSS carousel with auto-generated buttons and markers using pseudo-elements',
+    support_level: 'limited',
+    mdn_url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_overflow/CSS_carousels'
+  },
   
   // Animation Features
   transitions: {
@@ -126,6 +134,7 @@ export function searchFeatures(keywords: string[]): CSSFeature[] {
  */
 export function getCarouselFeatures(): CSSFeature[] {
   return [
+    CSS_FEATURES['css-carousel-modern'],
     CSS_FEATURES['css-carousel'],
     CSS_FEATURES['scroll-snap'],
     CSS_FEATURES['flexbox'],

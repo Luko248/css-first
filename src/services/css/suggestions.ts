@@ -132,6 +132,36 @@ function shouldIncludeBasedOnApproach(
  */
 function getFeatureSyntax(featureName: string): string {
   const syntaxMap: Record<string, string> = {
+    'Modern CSS Carousel with Pseudo-Elements': `
+.carousel {
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  display: flex;
+}
+.carousel::scroll-button(inline-start),
+.carousel::scroll-button(inline-end) {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+}
+.carousel::scroll-marker-group {
+  position: absolute;
+  bottom: -40px;
+  display: flex;
+  gap: 8px;
+}
+.carousel::scroll-marker {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+}
+.carousel::scroll-marker:target-current {
+  background: #007bff;
+}`,
     'CSS Carousel': `
 .carousel {
   overflow-x: scroll;
@@ -178,6 +208,13 @@ function getFeatureSyntax(featureName: string): string {
  */
 function getFeatureUseCases(featureName: string): string[] {
   const useCasesMap: Record<string, string[]> = {
+    'Modern CSS Carousel with Pseudo-Elements': [
+      'Auto-generated carousel navigation',
+      'Accessible carousel indicators',
+      'Column-based content sliders',
+      'Zero-JavaScript carousels',
+      'Progressive enhancement carousels'
+    ],
     'CSS Carousel': [
       'Image galleries',
       'Product showcases',
