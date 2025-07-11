@@ -30,6 +30,9 @@ import {
   type CSSPropertyDetails,
 } from './services/mdnApi.js';
 
+// Export for testing purposes
+export { CSS_FEATURES, searchFeatures } from './services/mdnApi.js';
+
 /** The main MCP server instance */
 const server = new McpServer({ name: 'MCP CSS First', version });
 

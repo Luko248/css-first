@@ -50,6 +50,127 @@ export async function getImplementationGuidance(
   needsFallback: boolean = false
 ): Promise<ImplementationGuidance> {
   const guidance: Record<string, ImplementationGuidance> = {
+    'padding-inline': {
+      basic_usage: '.element { padding-inline: 1rem; }',
+      best_practices: [
+        'Use logical properties for international layouts',
+        'Combine with rem units for scalable spacing',
+        'Prefer over padding-left/right for better RTL support',
+        'Use padding-inline-start/end for fine control'
+      ],
+      fallbacks: needsFallback ? [
+        'Use padding-left/right for older browsers',
+        'Provide CSS custom properties for direction-aware values',
+        'Use Autoprefixer for automatic fallbacks'
+      ] : [],
+      example_code: `
+.card {
+  padding-inline: 1.5rem;
+  padding-block: 1rem;
+  /* Fallback for older browsers */
+  padding: 1rem 1.5rem;
+}
+
+/* RTL support automatically handled */
+[dir="rtl"] .card {
+  /* No additional styles needed */
+}
+
+/* Fine-grained control */
+.asymmetric {
+  padding-inline-start: 2rem;
+  padding-inline-end: 1rem;
+}`
+    },
+    'margin-inline': {
+      basic_usage: '.element { margin-inline: auto; }',
+      best_practices: [
+        'Use margin-inline: auto for centering',
+        'Combine with modern units like rem, ch, or vi',
+        'Prefer over margin-left/right for international layouts',
+        'Use negative values for overlapping effects'
+      ],
+      fallbacks: needsFallback ? [
+        'Use margin-left/right for older browsers',
+        'Provide direction-specific fallbacks',
+        'Use CSS custom properties for dynamic values'
+      ] : [],
+      example_code: `
+.centered {
+  margin-inline: auto;
+  max-width: 60ch;
+  /* Fallback */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.offset {
+  margin-inline-start: 2rem;
+  margin-inline-end: 1rem;
+}`
+    },
+    'border-inline': {
+      basic_usage: '.element { border-inline: 1px solid #ccc; }',
+      best_practices: [
+        'Use logical border properties for directional layouts',
+        'Combine with CSS custom properties for theming',
+        'Use border-inline-start/end for asymmetric borders',
+        'Consider border-inline-width for responsive borders'
+      ],
+      fallbacks: needsFallback ? [
+        'Use border-left/right for older browsers',
+        'Provide direction-specific border styles',
+        'Use CSS feature queries for progressive enhancement'
+      ] : [],
+      example_code: `
+.sidebar {
+  border-inline-end: 1px solid var(--border-color);
+  /* Fallback */
+  border-right: 1px solid #ccc;
+}
+
+@supports (border-inline-end: 1px solid black) {
+  .sidebar {
+    border-right: none;
+  }
+}
+
+/* Responsive borders */
+@media (min-width: 768px) {
+  .content {
+    border-inline: 1px solid #e0e0e0;
+  }
+}`
+    },
+    'overflow-inline': {
+      basic_usage: '.element { overflow-inline: scroll; }',
+      best_practices: [
+        'Use overflow-inline for horizontal scrolling',
+        'Combine with scroll-snap for better UX',
+        'Use overflow-block for vertical scrolling',
+        'Consider overflow-clip-margin for precise control'
+      ],
+      fallbacks: needsFallback ? [
+        'Use overflow-x/y for older browsers',
+        'Provide JavaScript fallbacks for complex scrolling',
+        'Use CSS feature queries for progressive enhancement'
+      ] : [],
+      example_code: `
+.horizontal-scroll {
+  overflow-inline: scroll;
+  overflow-block: hidden;
+  scroll-snap-type: inline mandatory;
+  /* Fallback */
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.item {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: 80vi;
+}`
+    },
     'overflow-x': {
       basic_usage: '.carousel { overflow-x: scroll; scroll-snap-type: x mandatory; }',
       best_practices: [

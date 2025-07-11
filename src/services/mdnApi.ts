@@ -36,3 +36,10 @@ export {
   getAlternativeCSSProperties,
   getImplementationGuidance,
 } from "./css/guidance.js";
+
+export {
+  CSS_FEATURES,
+  getFeaturesByCategory,
+  searchFeatures,
+  getCarouselFeatures,
+} from "./css/features.js";

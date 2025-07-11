@@ -17,7 +17,22 @@ export function extractCSSKeywords(description: string): string[] {
   
   // Layout keywords
   if (lowerDescription.includes('center') || lowerDescription.includes('align')) {
-    keywords.push('center', 'align', 'justify');
+    keywords.push('center', 'align', 'justify', 'logical-spacing');
+  }
+  
+  // Spacing keywords
+  if (lowerDescription.includes('padding') || lowerDescription.includes('margin') || lowerDescription.includes('spacing')) {
+    keywords.push('logical-spacing', 'spacing-units', 'padding', 'margin');
+  }
+  
+  // Border keywords
+  if (lowerDescription.includes('border') || lowerDescription.includes('outline')) {
+    keywords.push('border-logical', 'border');
+  }
+  
+  // Overflow keywords
+  if (lowerDescription.includes('overflow') || lowerDescription.includes('scroll') || lowerDescription.includes('clip')) {
+    keywords.push('overflow-logical', 'overflow');
   }
   
   // Carousel-specific keywords
@@ -132,6 +147,55 @@ function shouldIncludeBasedOnApproach(
  */
 function getFeatureSyntax(featureName: string): string {
   const syntaxMap: Record<string, string> = {
+    'Logical Spacing Properties': `
+.element {
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  margin-inline: auto;
+  margin-block: 1rem;
+  scroll-margin-inline: 1rem;
+}
+
+/* Fine-grained control */
+.asymmetric {
+  padding-inline-start: 2rem;
+  padding-inline-end: 1rem;
+  margin-block-start: 2rem;
+}`,
+    'Modern CSS Units': `
+.container {
+  width: 60ch;
+  padding: 1rem;
+  margin-inline: auto;
+  height: 100vh;
+}
+
+.responsive {
+  width: clamp(16rem, 50vw, 60rem);
+  padding: 1rem 2rem;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+}`,
+    'Logical Border Properties': `
+.element {
+  border-inline: 1px solid #ccc;
+  border-block-start: 2px solid blue;
+}
+
+.sidebar {
+  border-inline-end: 1px solid var(--border-color);
+  border-block: none;
+}`,
+    'Logical Overflow Properties': `
+.horizontal-scroll {
+  overflow-inline: scroll;
+  overflow-block: hidden;
+  scroll-snap-type: inline mandatory;
+}
+
+.text-content {
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+}`,
     'Modern CSS Carousel with Pseudo-Elements': `
 .carousel {
   overflow-x: scroll;
@@ -208,6 +272,34 @@ function getFeatureSyntax(featureName: string): string {
  */
 function getFeatureUseCases(featureName: string): string[] {
   const useCasesMap: Record<string, string[]> = {
+    'Logical Spacing Properties': [
+      'International layouts with RTL support',
+      'Responsive spacing that adapts to writing direction',
+      'Accessible spacing with relative units',
+      'Scroll-aware spacing for carousels',
+      'Direction-agnostic component design'
+    ],
+    'Modern CSS Units': [
+      'Responsive typography with rem/em',
+      'Content-aware sizing with ch units',
+      'Viewport-based responsive layouts',
+      'Logical viewport units for mobile',
+      'Accessible spacing with relative units'
+    ],
+    'Logical Border Properties': [
+      'International border styling',
+      'Direction-aware component borders',
+      'Responsive border designs',
+      'Accessible focus indicators',
+      'Dynamic border styling'
+    ],
+    'Logical Overflow Properties': [
+      'Direction-aware scrolling',
+      'International text overflow handling',
+      'Responsive overflow management',
+      'Accessible scrolling experiences',
+      'Dynamic content clipping'
+    ],
     'Modern CSS Carousel with Pseudo-Elements': [
       'Auto-generated carousel navigation',
       'Accessible carousel indicators',
