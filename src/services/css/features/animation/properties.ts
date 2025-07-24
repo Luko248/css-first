@@ -38,6 +38,92 @@ export const ANIMATION_FEATURES: Record<string, CSSFeature> = {
     support_level: "excellent",
     mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations",
   },
+  starting_style: {
+    name: "CSS @starting-style",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "@starting-style",
+    ],
+    description: "Define initial styles for animating display and discrete properties",
+    support_level: "limited",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style",
+  },
+  interpolate_size: {
+    name: "CSS interpolate-size",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "interpolate-size",
+    ],
+    description: "Enable smooth animations of intrinsic sizing keywords like auto",
+    support_level: "experimental",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size",
+  },
+  scroll_timeline: {
+    name: "CSS Scroll Timeline",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "scroll-timeline",
+      "scroll-timeline-name",
+      "scroll-timeline-axis",
+    ],
+    description: "Create animation timelines driven by scroll position",
+    support_level: "experimental",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-timeline",
+  },
+  view_timeline: {
+    name: "CSS View Timeline",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "view-timeline",
+      "view-timeline-name",
+      "view-timeline-axis",
+    ],
+    description: "Create animation timelines based on element visibility in viewport",
+    support_level: "experimental",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/view-timeline",
+  },
+  animation_timeline: {
+    name: "CSS Animation Timeline",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "animation-timeline",
+    ],
+    description: "Connect animations to scroll or view timelines",
+    support_level: "experimental",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline",
+  },
+  animation_range: {
+    name: "CSS Animation Range",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "animation-range",
+      "animation-range-start",
+      "animation-range-end",
+    ],
+    description: "Control the range of scroll-driven animations",
+    support_level: "experimental",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/animation-range",
+  },
+  view_timeline_inset: {
+    name: "CSS View Timeline Inset",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "view-timeline-inset",
+    ],
+    description: "Adjust the scroll positions for view timeline start and end",
+    support_level: "experimental",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/view-timeline-inset",
+  },
+  timeline_scope: {
+    name: "CSS Timeline Scope",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "timeline-scope",
+    ],
+    description: "Control the accessibility of named timelines to descendant elements",
+    support_level: "experimental",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/timeline-scope",
+  },
 };
 
 export const ANIMATION_KEYWORDS = [
@@ -57,5 +143,26 @@ export const ANIMATION_KEYWORDS = [
   'bounce',
   'ease',
   'duration',
-  'delay'
+  'delay',
+  'starting-style',
+  'interpolate-size',
+  'display',
+  'height',
+  'width',
+  'gpu',
+  'accelerated',
+  'filter',
+  'skew',
+  'scroll-timeline',
+  'view-timeline',
+  'animation-timeline',
+  'animation-range',
+  'timeline-scope',
+  'scroll',
+  'viewport',
+  'timeline',
+  'range',
+  'inset',
+  'scroll-driven',
+  'view-driven'
 ];
