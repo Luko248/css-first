@@ -29,6 +29,17 @@ export const GRID_FEATURES: Record<string, CSSFeature> = {
     support_level: "excellent",
     mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout",
   },
+  subgrid: {
+    name: "CSS Subgrid",
+    category: CSSFeatureCategory.LAYOUT,
+    properties: [
+      "grid-template-columns",
+      "grid-template-rows",
+    ],
+    description: "Inherit grid track sizing from parent grid container",
+    support_level: "good",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid",
+  },
 };
 
 export const GRID_KEYWORDS = [
@@ -44,5 +55,9 @@ export const GRID_KEYWORDS = [
   'fr',
   'minmax',
   'auto-fit',
-  'auto-fill'
+  'auto-fill',
+  'subgrid',
+  'inherit',
+  'parent',
+  'track'
 ];

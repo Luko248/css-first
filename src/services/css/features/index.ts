@@ -10,6 +10,9 @@ import { ANIMATION_FEATURES } from './animation/index.js';
 import { VISUAL_FEATURES } from './visual/index.js';
 import { RESPONSIVE_FEATURES } from './responsive/index.js';
 import { INTERACTION_FEATURES } from './interaction/index.js';
+import { LOGICAL_FEATURES } from './logical/index.js';
+import { POSITIONING_FEATURES } from './positioning/index.js';
+import { DISPLAY_FEATURES } from './display/index.js';
 
 // Combine all features into a single registry
 export const CSS_FEATURES: Record<string, CSSFeature> = {
@@ -20,6 +23,9 @@ export const CSS_FEATURES: Record<string, CSSFeature> = {
   ...VISUAL_FEATURES,
   ...RESPONSIVE_FEATURES,
   ...INTERACTION_FEATURES,
+  ...LOGICAL_FEATURES,
+  ...POSITIONING_FEATURES,
+  ...DISPLAY_FEATURES,
 };
 
 // Export individual feature modules
@@ -29,6 +35,9 @@ export { ANIMATION_FEATURES, ANIMATION_GUIDANCE, ANIMATION_SYNTAX, ANIMATION_USE
 export { VISUAL_FEATURES } from './visual/index.js';
 export { RESPONSIVE_FEATURES } from './responsive/index.js';
 export { INTERACTION_FEATURES } from './interaction/index.js';
+export { LOGICAL_FEATURES } from './logical/index.js';
+export { POSITIONING_FEATURES } from './positioning/index.js';
+export { DISPLAY_FEATURES } from './display/index.js';
 
 // Re-export feature functions for backwards compatibility
 export { getFeaturesByCategory, searchFeatures, getCarouselFeatures } from './utils.js';

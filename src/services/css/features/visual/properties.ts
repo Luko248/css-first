@@ -60,20 +60,46 @@ export const VISUAL_FEATURES: Record<string, CSSFeature> = {
     support_level: "good",
     mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties",
   },
-  "overflow-logical": {
-    name: "Logical Overflow Properties",
+  overflow: {
+    name: "CSS Overflow",
     category: CSSFeatureCategory.LAYOUT,
     properties: [
+      "overflow",
+      "overflow-x",
+      "overflow-y",
       "overflow-inline",
       "overflow-block",
       "text-overflow",
       "overflow-wrap",
       "overflow-anchor",
+    ],
+    description: "Control how content overflows its container",
+    support_level: "excellent",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow",
+  },
+  "overflow-clip": {
+    name: "CSS Overflow Clip",
+    category: CSSFeatureCategory.LAYOUT,
+    properties: [
       "overflow-clip-margin",
     ],
-    description: "Logical overflow properties for directional content handling",
+    description: "Control clipping area for overflow: clip",
+    support_level: "limited",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-clip-margin",
+  },
+  "overscroll-behavior": {
+    name: "CSS Overscroll Behavior",
+    category: CSSFeatureCategory.INTERACTION,
+    properties: [
+      "overscroll-behavior",
+      "overscroll-behavior-x",
+      "overscroll-behavior-y",
+      "overscroll-behavior-inline",
+      "overscroll-behavior-block",
+    ],
+    description: "Control scrolling behavior when reaching scroll boundaries",
     support_level: "good",
-    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Overflow",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
   },
 };
 
@@ -94,7 +120,12 @@ export const VISUAL_KEYWORDS = [
   'border',
   'outline',
   'overflow',
+  'overflow-clip',
+  'overscroll',
   'clip',
+  'clip-margin',
+  'scroll',
+  'behavior',
   'shadow',
   'visual',
   'styling'

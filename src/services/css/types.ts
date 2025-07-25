@@ -88,7 +88,10 @@ export enum CSSFeatureCategory {
   TYPOGRAPHY = 'typography',
   RESPONSIVE = 'responsive',
   INTERACTION = 'interaction',
-  ACCESSIBILITY = 'accessibility'
+  ACCESSIBILITY = 'accessibility',
+  LOGICAL = 'logical',
+  POSITIONING = 'positioning',
+  DISPLAY = 'display'
 }
 
 /**

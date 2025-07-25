@@ -3,3 +3,4 @@
  */
 
 export { RESPONSIVE_FEATURES } from './properties.js';
+export { RESPONSIVE_GUIDANCE, getResponsiveGuidance } from './guidance.js';

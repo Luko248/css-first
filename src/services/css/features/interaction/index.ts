@@ -3,3 +3,4 @@
  */
 
 export { INTERACTION_FEATURES } from './properties.js';
+export { INTERACTION_GUIDANCE, getInteractionGuidance } from './guidance.js';
