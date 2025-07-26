@@ -32,7 +32,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "start": "node dist/cli.js"
+    "start": "node dist/cli.js",
+    "update-features": "tsx src/scripts/updateFeatures.ts",
+    "discover-features": "tsx src/services/css/featureDiscovery.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "~1.13",

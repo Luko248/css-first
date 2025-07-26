@@ -282,16 +282,118 @@ The enhanced system provides context-aware suggestions across:
 - **Limited** (<70%): 🔄 Consider alternative approaches
 - **Experimental** (varies): 🧪 Cutting-edge features with progressive enhancement
 
-## 🔧 Context7 Integration
+## 🔧 Context7 Integration & Automated Feature Discovery
 
-This MCP is designed to work optimally with **context7** tools that provide structured MDN documentation. When context7 is available:
+This MCP features **automated CSS feature discovery** using context7 MCP for MDN documentation. The system continuously discovers and integrates recent CSS features (2021-2025) with intelligent categorization.
 
-- **Faster Response Times**: Pre-processed MDN data
-- **Structured Information**: Better parsing of CSS property details
+### **Context7 Benefits**
+- **Faster Response Times**: Pre-processed MDN data with intelligent caching
+- **Structured Information**: Better parsing of CSS property details and browser support
 - **Reduced API Calls**: Less reliance on direct MDN scraping
-- **Enhanced Reliability**: Fallback mechanisms ensure service continuity
+- **Enhanced Reliability**: Multi-layered fallback mechanisms ensure service continuity
 
-**Setup with context7**: The MCP automatically detects and uses context7 when available, falling back to direct MDN integration when needed.
+### **Automated Feature Discovery**
+- **🤖 Auto-Discovery**: Automatically finds and categorizes new CSS features from MDN
+- **📊 Intelligent Categorization**: Uses semantic analysis to categorize features by type
+- **🔄 Continuous Updates**: Built-in mechanisms for ongoing feature maintenance
+- **📈 Browser Support Analysis**: Automatic extraction of compatibility information
+
+### **Recently Integrated Features (2021-2025)**
+
+#### **🆕 Major CSS Features Added**
+- **Container Queries** (2022): Element-based responsive design with logical units (`cqi`, `cqb`) and style/scroll queries
+- **CSS Nesting** (2023): Native CSS nesting without preprocessors
+- **:has() Pseudo-class** (2022): Parent selection based on children
+- **Dynamic Viewport Units** (2022-2023): Complete logical viewport units (`dvi`, `dvb`, `svi`, `svb`, `lvi`, `lvb`) with physical fallbacks
+- **color-mix() Function** (2021-2024): Advanced color mixing in different color spaces
+- **Scroll-driven Animations** (2023-2024): Animations driven by scroll progress
+- **CSS Cascade Layers** (2022): Better style organization with @layer
+- **Subgrid** (2021-2023): Grid items participating in parent grid
+- **aspect-ratio Property** (2021): Native aspect ratio control
+- **Enhanced Math Functions** (2021-2023): clamp(), round(), trigonometric functions
+
+#### **📱 Responsive & Modern Layout**
+- **CSS Anchor Positioning** (2024): Position elements relative to other elements
+- **View Transitions** (2023-2024): Smooth page/view transitions
+- **Enhanced Logical Properties**: Complete writing-mode aware spacing, sizing, and positioning
+- **Container Style Queries**: Query container's computed style values
+- **Container Scroll State Queries**: Query container's scroll state
+- **Masonry Layout** (Experimental): Pinterest-style layouts
+
+#### **🎨 Visual & Color Enhancements**
+- **accent-color**: Customize form control colors
+- **color-scheme**: Light/dark mode indication
+- **light-dark() Function**: Theme-aware color values
+- **backdrop-filter**: Glass morphism effects
+- **conic-gradient**: Conical gradients for complex designs
+
+### **Automated Update Commands**
+
+```bash
+# Discover and integrate new CSS features from MDN
+npm run update-features
+
+# Run feature discovery (development)
+npm run discover-features
+```
+
+### **Context7 Setup**
+The MCP automatically detects and uses context7 when available:
+
+1. **Automatic Detection**: Checks for context7 MCP in the environment
+2. **Graceful Fallback**: Falls back to direct MDN integration if context7 unavailable
+3. **Performance Optimization**: Uses caching and intelligent data processing
+4. **Error Handling**: Robust error handling with multiple fallback strategies
+5. **Logical-First Approach**: Automatically prioritizes logical CSS units and properties for internationalization
+
+## 🌍 Logical Units & Internationalization
+
+This MCP implements a **logical-first approach** to CSS suggestions, prioritizing writing-mode aware properties for better internationalization support.
+
+### **Logical Units Priority System**
+
+#### **Viewport Units (Logical Preferred)**
+- `dvi`, `dvb` (dynamic viewport inline/block) → `dvw`, `dvh` (physical fallback)
+- `svi`, `svb` (small viewport inline/block) → `svw`, `svh` (physical fallback)  
+- `lvi`, `lvb` (large viewport inline/block) → `lvw`, `lvh` (physical fallback)
+
+#### **Container Query Units (Logical Preferred)**
+- `cqi`, `cqb` (container query inline/block) → `cqw`, `cqh` (physical fallback)
+
+#### **CSS Properties (Logical Preferred)**
+- `inline-size`, `block-size` → `width`, `height` (physical fallback)
+- `margin-inline`, `margin-block` → `margin-left/right`, `margin-top/bottom`
+- `padding-inline`, `padding-block` → `padding-left/right`, `padding-top/bottom`
+- `border-inline`, `border-block` → `border-left/right`, `border-top/bottom`
+- `inset-inline`, `inset-block` → `left/right`, `top/bottom`
+
+### **Advanced Container Queries**
+
+#### **Size-based Container Queries (Enhanced)**
+```css
+@container (inline-size > 30cqi) {
+  .component { gap: 2cqi; }
+}
+```
+
+#### **Style Queries (NEW)**
+```css
+@container style(--theme: dark) {
+  .card { background: var(--dark-bg); }
+}
+```
+
+#### **Scroll State Queries (NEW)**
+```css
+@container scroll-state(stuck: top) {
+  .header { backdrop-filter: blur(10px); }
+}
+```
+
+### **Writing-Mode Awareness**
+- **RTL Language Support**: Logical properties automatically adapt to right-to-left languages
+- **Vertical Writing Modes**: Properties work correctly with `writing-mode: vertical-rl`
+- **International Compatibility**: Suggestions prioritize globally compatible approaches
 
 ## License
 

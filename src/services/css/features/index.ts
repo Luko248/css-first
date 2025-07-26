@@ -13,6 +13,7 @@ import { INTERACTION_FEATURES } from './interaction/index.js';
 import { LOGICAL_FEATURES } from './logical/index.js';
 import { POSITIONING_FEATURES } from './positioning/index.js';
 import { DISPLAY_FEATURES } from './display/index.js';
+import { MODERN_CSS_FEATURES } from './modern/index.js';
 
 // Combine all features into a single registry
 export const CSS_FEATURES: Record<string, CSSFeature> = {
@@ -26,6 +27,7 @@ export const CSS_FEATURES: Record<string, CSSFeature> = {
   ...LOGICAL_FEATURES,
   ...POSITIONING_FEATURES,
   ...DISPLAY_FEATURES,
+  ...MODERN_CSS_FEATURES,
 };
 
 // Export individual feature modules
@@ -38,6 +40,7 @@ export { INTERACTION_FEATURES } from './interaction/index.js';
 export { LOGICAL_FEATURES } from './logical/index.js';
 export { POSITIONING_FEATURES } from './positioning/index.js';
 export { DISPLAY_FEATURES } from './display/index.js';
+export { MODERN_CSS_FEATURES, MODERN_CSS_GUIDANCE, MODERN_CSS_SYNTAX, MODERN_CSS_USE_CASES, extractModernCSSKeywords, getModernCSSGuidance } from './modern/index.js';
 
 // Re-export feature functions for backwards compatibility
 export { getFeaturesByCategory, searchFeatures, getCarouselFeatures } from './utils.js';

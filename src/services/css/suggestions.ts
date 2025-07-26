@@ -6,6 +6,7 @@ import { CSSPropertySuggestion, CSSFeatureCategory } from './types.js';
 import { searchFeatures, getCarouselFeatures } from './features.js';
 import { fetchBrowserSupportFromMDN, fetchMDNData } from './mdnClient.js';
 import { analyzeProjectContext, getFrameworkSpecificRecommendations, getCSSFrameworkRecommendations } from './contextAnalyzer.js';
+import { rankByLogicalPreference, getWritingModeRecommendations, getLogicalAlternative } from './logicalUnitsPreference.js';
 
 /** Intent patterns for semantic analysis */
 const INTENT_PATTERNS = {
@@ -141,6 +142,10 @@ export function analyzeTaskIntent(description: string, projectContext?: any): {
   if (contextAnalysis.cssFramework) {
     recommendations.push(...getCSSFrameworkRecommendations(contextAnalysis.cssFramework));
   }
+  
+  // Add logical units recommendations
+  const writingModeRecommendations = getWritingModeRecommendations(projectContext);
+  recommendations.push(...writingModeRecommendations);
 
   return {
     keywords: [...new Set(keywords)],
@@ -292,8 +297,10 @@ async function searchWithIntelligentRanking(
     }
   }
   
-  // Sort by relevance score
-  return suggestions
+  // Apply logical units preference ranking and sort by relevance score
+  const logicallyRankedSuggestions = rankByLogicalPreference(suggestions);
+  
+  return logicallyRankedSuggestions
     .sort((a, b) => ((b as any).relevanceScore || 0) - ((a as any).relevanceScore || 0))
     .slice(0, 5);
 }
