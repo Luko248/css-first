@@ -1,17 +1,162 @@
 /**
- * CSS suggestion engine for UI tasks
+ * Enhanced CSS suggestion engine with semantic analysis
  */
 
 import { CSSPropertySuggestion, CSSFeatureCategory } from './types.js';
 import { searchFeatures, getCarouselFeatures } from './features.js';
-import { fetchBrowserSupportFromMDN } from './mdnClient.js';
+import { fetchBrowserSupportFromMDN, fetchMDNData } from './mdnClient.js';
+import { analyzeProjectContext, getFrameworkSpecificRecommendations, getCSSFrameworkRecommendations } from './contextAnalyzer.js';
+
+/** Intent patterns for semantic analysis */
+const INTENT_PATTERNS = {
+  layout: {
+    patterns: [
+      /(?:arrange|organize|position|place|layout)/i,
+      /(?:center|align|justify|distribute)/i,
+      /(?:column|row|grid|flex)/i,
+      /(?:beside|above|below|next to|in a row)/i
+    ],
+    categories: [CSSFeatureCategory.LAYOUT]
+  },
+  animation: {
+    patterns: [
+      /(?:animate|transition|move|slide|fade|hover)/i,
+      /(?:smooth|ease|duration|timing)/i,
+      /(?:transform|translate|rotate|scale)/i
+    ],
+    categories: [CSSFeatureCategory.ANIMATION]
+  },
+  spacing: {
+    patterns: [
+      /(?:space|spacing|gap|margin|padding)/i,
+      /(?:between|around|inside|outside)/i,
+      /(?:tight|loose|compressed|expanded)/i
+    ],
+    categories: [CSSFeatureCategory.LOGICAL]
+  },
+  responsive: {
+    patterns: [
+      /(?:responsive|mobile|tablet|desktop|breakpoint)/i,
+      /(?:small screen|large screen|different sizes)/i,
+      /(?:adapt|resize|scale|fit)/i
+    ],
+    categories: [CSSFeatureCategory.RESPONSIVE]
+  },
+  visual: {
+    patterns: [
+      /(?:color|background|border|shadow|gradient)/i,
+      /(?:appearance|style|design|look)/i,
+      /(?:opacity|transparency|blur)/i
+    ],
+    categories: [CSSFeatureCategory.VISUAL]
+  },
+  interaction: {
+    patterns: [
+      /(?:click|hover|focus|active|disabled)/i,
+      /(?:interactive|button|link|form)/i,
+      /(?:state|feedback|response)/i
+    ],
+    categories: [CSSFeatureCategory.INTERACTION]
+  }
+};
+
+/** Context keywords for project awareness */
+const FRAMEWORK_INDICATORS = {
+  react: ['component', 'jsx', 'react', 'useState', 'useEffect'],
+  vue: ['template', 'v-if', 'v-for', 'vue', 'composition'],
+  angular: ['angular', 'component', 'directive', 'ngIf', 'ngFor'],
+  tailwind: ['tailwind', 'tw-', 'class=', 'className='],
+  bootstrap: ['bootstrap', 'btn-', 'col-', 'row', 'container']
+};
 
 /**
- * Extracts relevant CSS keywords from a task description
+ * Analyzes user intent and extracts semantic keywords with context awareness
  * @param description - The UI task description to analyze
- * @returns Array of CSS-related keywords that match the description
+ * @param projectContext - Optional project context (framework, existing CSS, etc.)
+ * @returns Enhanced analysis with keywords, intent, and context
  */
-export function extractCSSKeywords(description: string): string[] {
+export function analyzeTaskIntent(description: string, projectContext?: any): {
+  keywords: string[];
+  intent: string[];
+  confidence: number;
+  suggestedCategories: CSSFeatureCategory[];
+  frameworkHints: string[];
+  contextAnalysis?: any;
+  recommendations?: string[];
+} {
+  const keywords: string[] = [];
+  const intent: string[] = [];
+  const suggestedCategories: CSSFeatureCategory[] = [];
+  const frameworkHints: string[] = [];
+  let totalMatches = 0;
+  let totalPatterns = 0;
+
+  // Analyze project context
+  const contextAnalysis = analyzeProjectContext(projectContext);
+
+  // Analyze intent patterns
+  for (const [intentType, config] of Object.entries(INTENT_PATTERNS)) {
+    let intentMatches = 0;
+    for (const pattern of config.patterns) {
+      totalPatterns++;
+      if (pattern.test(description)) {
+        intentMatches++;
+        totalMatches++;
+      }
+    }
+    
+    if (intentMatches > 0) {
+      intent.push(intentType);
+      suggestedCategories.push(...config.categories);
+    }
+  }
+
+  // Extract framework hints from project context and description
+  if (contextAnalysis.framework) {
+    frameworkHints.push(contextAnalysis.framework);
+  }
+  if (contextAnalysis.cssFramework) {
+    frameworkHints.push(contextAnalysis.cssFramework);
+  }
+
+  // Additional framework detection from description
+  for (const [framework, indicators] of Object.entries(FRAMEWORK_INDICATORS)) {
+    if (indicators.some(indicator => 
+      description.toLowerCase().includes(indicator)
+    )) {
+      frameworkHints.push(framework);
+    }
+  }
+
+  // Legacy keyword extraction for backward compatibility
+  keywords.push(...extractLegacyKeywords(description));
+
+  const confidence = totalPatterns > 0 ? totalMatches / totalPatterns : 0;
+
+  // Generate context-aware recommendations
+  const recommendations: string[] = [];
+  if (contextAnalysis.framework) {
+    recommendations.push(...getFrameworkSpecificRecommendations(contextAnalysis.framework));
+  }
+  if (contextAnalysis.cssFramework) {
+    recommendations.push(...getCSSFrameworkRecommendations(contextAnalysis.cssFramework));
+  }
+
+  return {
+    keywords: [...new Set(keywords)],
+    intent: [...new Set(intent)],
+    confidence,
+    suggestedCategories: [...new Set(suggestedCategories)],
+    frameworkHints: [...new Set(frameworkHints)],
+    contextAnalysis,
+    recommendations: recommendations.length > 0 ? recommendations : undefined
+  };
+}
+
+/**
+ * Legacy keyword extraction for backward compatibility
+ */
+function extractLegacyKeywords(description: string): string[] {
   const keywords: string[] = [];
   const lowerDescription = description.toLowerCase();
   
@@ -59,14 +204,135 @@ export function extractCSSKeywords(description: string): string[] {
 }
 
 /**
- * Searches for CSS properties that match the given keywords and approach
- * @param keywords - Array of CSS keywords to search for
+ * Backward compatibility wrapper for extractCSSKeywords
+ */
+export function extractCSSKeywords(description: string): string[] {
+  const analysis = analyzeTaskIntent(description);
+  return analysis.keywords;
+}
+
+/**
+ * Enhanced CSS property search with intelligent ranking
+ * @param description - Task description for semantic analysis
  * @param approach - Preferred CSS approach (modern, compatible, progressive)
- * @returns Promise that resolves to an array of CSS property suggestions
+ * @param projectContext - Optional project context for better suggestions
+ * @returns Promise that resolves to ranked CSS property suggestions
  */
 export async function searchMDNForCSSProperties(
+  description: string | string[],
+  approach: 'modern' | 'compatible' | 'progressive' = 'modern',
+  projectContext?: any
+): Promise<CSSPropertySuggestion[]> {
+  // Handle backward compatibility with keyword array
+  if (Array.isArray(description)) {
+    return searchLegacyKeywords(description, approach);
+  }
+
+  // New semantic analysis approach
+  const analysis = analyzeTaskIntent(description, projectContext);
+  return searchWithIntelligentRanking(analysis, approach, projectContext);
+}
+
+/**
+ * Intelligent ranking system for CSS suggestions
+ */
+async function searchWithIntelligentRanking(
+  analysis: {
+    keywords: string[];
+    intent: string[];
+    confidence: number;
+    suggestedCategories: CSSFeatureCategory[];
+    frameworkHints: string[];
+  },
+  approach: 'modern' | 'compatible' | 'progressive',
+  projectContext?: any
+): Promise<CSSPropertySuggestion[]> {
+  const suggestions: CSSPropertySuggestion[] = [];
+  
+  // Get features based on suggested categories with higher priority
+  for (const category of analysis.suggestedCategories) {
+    const categoryFeatures = searchFeatures(analysis.keywords);
+    
+    for (const feature of categoryFeatures) {
+      const mdnData = await fetchMDNData(feature.properties[0]);
+      const browserSupport = await fetchBrowserSupportFromMDN(feature.properties[0]);
+      
+      if (shouldIncludeBasedOnApproach(feature.support_level, approach)) {
+        const suggestion: CSSPropertySuggestion = {
+          property: feature.properties[0],
+          description: feature.description,
+          syntax: mdnData.syntax || getFeatureSyntax(feature.name),
+          browser_support: {
+            overall_support: browserSupport.overall_support,
+            modern_browsers: browserSupport.overall_support >= 85,
+            legacy_support: browserSupport.overall_support >= 70 ? 'good' : 'limited'
+          },
+          use_cases: getFeatureUseCases(feature.name),
+          mdn_url: feature.mdn_url
+        };
+        
+        // Add ranking score based on relevance
+        (suggestion as any).relevanceScore = calculateRelevanceScore(
+          feature,
+          analysis,
+          projectContext
+        );
+        
+        suggestions.push(suggestion);
+      }
+    }
+  }
+  
+  // Fallback to keyword-based search if no category matches
+  if (suggestions.length === 0) {
+    const fallbackFeatures = searchFeatures(analysis.keywords);
+    for (const feature of fallbackFeatures.slice(0, 5)) {
+      const browserSupport = await fetchBrowserSupportFromMDN(feature.properties[0]);
+      suggestions.push(await createSuggestionFromFeature(feature, browserSupport));
+    }
+  }
+  
+  // Sort by relevance score
+  return suggestions
+    .sort((a, b) => ((b as any).relevanceScore || 0) - ((a as any).relevanceScore || 0))
+    .slice(0, 5);
+}
+
+/**
+ * Calculate relevance score for intelligent ranking
+ */
+function calculateRelevanceScore(
+  feature: any,
+  analysis: any,
+  projectContext?: any
+): number {
+  let score = 0;
+  
+  // Intent match bonus
+  if (analysis.intent.includes('layout') && feature.category === CSSFeatureCategory.LAYOUT) score += 10;
+  if (analysis.intent.includes('animation') && feature.category === CSSFeatureCategory.ANIMATION) score += 10;
+  if (analysis.intent.includes('spacing') && feature.category === CSSFeatureCategory.LOGICAL) score += 10;
+  
+  // Browser support bonus
+  if (feature.support_level === 'excellent') score += 5;
+  if (feature.support_level === 'good') score += 3;
+  
+  // Framework compatibility bonus
+  if (analysis.frameworkHints.includes('react') && feature.properties.includes('flex')) score += 3;
+  if (analysis.frameworkHints.includes('tailwind') && feature.properties.includes('grid')) score += 3;
+  
+  // Confidence multiplier
+  score *= (1 + analysis.confidence);
+  
+  return score;
+}
+
+/**
+ * Legacy search function for backward compatibility
+ */
+async function searchLegacyKeywords(
   keywords: string[],
-  approach: 'modern' | 'compatible' | 'progressive' = 'modern'
+  approach: 'modern' | 'compatible' | 'progressive'
 ): Promise<CSSPropertySuggestion[]> {
   const suggestions: CSSPropertySuggestion[] = [];
   
@@ -124,15 +390,33 @@ export async function searchMDNForCSSProperties(
 }
 
 /**
+ * Helper function to create suggestion from feature
+ */
+async function createSuggestionFromFeature(feature: any, browserSupport: any): Promise<CSSPropertySuggestion> {
+  return {
+    property: feature.properties[0],
+    description: feature.description,
+    syntax: getFeatureSyntax(feature.name),
+    browser_support: {
+      overall_support: browserSupport.overall_support,
+      modern_browsers: browserSupport.overall_support >= 85,
+      legacy_support: browserSupport.overall_support >= 70 ? 'good' : 'limited'
+    },
+    use_cases: getFeatureUseCases(feature.name),
+    mdn_url: feature.mdn_url
+  };
+}
+
+/**
  * Determines if a feature should be included based on the approach
  */
 function shouldIncludeBasedOnApproach(
-  supportLevel: 'excellent' | 'good' | 'moderate' | 'limited',
+  supportLevel: 'excellent' | 'good' | 'moderate' | 'limited' | 'experimental',
   approach: 'modern' | 'compatible' | 'progressive'
 ): boolean {
   switch (approach) {
     case 'modern':
-      return ['excellent', 'good'].includes(supportLevel);
+      return ['excellent', 'good', 'experimental'].includes(supportLevel);
     case 'compatible':
       return supportLevel === 'excellent';
     case 'progressive':

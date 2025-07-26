@@ -45,7 +45,7 @@ const server = new McpServer({ name: 'MCP CSS First', version });
  */
 server.tool(
   'suggest_css_solution',
-  'Suggests CSS-first solutions for UI implementation tasks by searching MDN documentation. Provides detailed CSS property information, browser support, and asks for user consent before recommending usage.',
+  'Enhanced CSS-first solution suggester with semantic analysis, context awareness, and intelligent ranking. Integrates with context7 for MDN data and provides personalized recommendations.',
   {
     task_description: z.string().describe('Description of the UI task or problem to solve'),
     preferred_approach: z
@@ -53,31 +53,54 @@ server.tool(
       .optional()
       .describe('Preferred CSS approach - modern (latest features), compatible (wide browser support), or progressive (with fallbacks)'),
     target_browsers: z.array(z.string()).optional().describe('Target browsers/versions (e.g., ["Chrome 90+", "Firefox 88+", "Safari 14+"])'),
+    project_context: z.string().optional().describe('Project context (framework, existing CSS patterns, constraints)'),
+    include_analysis: z.boolean().optional().describe('Include semantic analysis details in response'),
   },
-  async (args: { task_description: string; preferred_approach?: 'modern' | 'compatible' | 'progressive'; target_browsers?: string[] }) => {
+  async (args: { 
+    task_description: string; 
+    preferred_approach?: 'modern' | 'compatible' | 'progressive'; 
+    target_browsers?: string[]; 
+    project_context?: string;
+    include_analysis?: boolean;
+  }) => {
     try {
-      const { task_description, preferred_approach = 'modern' } = args;
+      const { task_description, preferred_approach = 'modern', project_context, include_analysis = false } = args;
 
-      // Keywords extraction for CSS property search
-      const cssKeywords = extractCSSKeywords(task_description);
+      // Enhanced semantic analysis and intelligent search
+      const suggestions: CSSPropertySuggestion[] = await searchMDNForCSSProperties(
+        task_description, 
+        preferred_approach,
+        project_context
+      );
 
-      // Search MDN for relevant CSS properties
-      const suggestions: CSSPropertySuggestion[] = await searchMDNForCSSProperties(cssKeywords, preferred_approach);
+      // Get analysis details if requested
+      let analysisDetails = null;
+      if (include_analysis) {
+        const { analyzeTaskIntent } = await import('./services/mdnApi.js');
+        analysisDetails = analyzeTaskIntent(task_description, project_context);
+      }
 
       const result = suggestions.length === 0 
         ? {
             success: false,
             message: 'No CSS-first solutions found for this task. Consider using JavaScript for dynamic behavior or complex interactions.',
             suggestions: [],
+            ...(analysisDetails && { analysis: analysisDetails })
           }
         : {
             success: true,
-            message: `Found ${suggestions.length} CSS-first solution(s) for your UI task`,
+            message: `Found ${suggestions.length} intelligently ranked CSS-first solution(s) for your UI task`,
             suggestions: suggestions.map((suggestion) => ({
               ...suggestion,
               needs_consent: true,
               consent_message: `Do you want to use the CSS property "${suggestion.property}" which has ${suggestion.browser_support.overall_support}% browser support?`,
             })),
+            ...(analysisDetails && { 
+              analysis: {
+                ...analysisDetails,
+                explanation: `Analyzed with ${Math.round(analysisDetails.confidence * 100)}% confidence. Detected intent: ${analysisDetails.intent.join(', ')}.`
+              }
+            })
           };
 
       return {

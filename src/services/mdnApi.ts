@@ -26,7 +26,7 @@ export {
 } from "./css/suggestions.js";
 
 export {
-  fetchMDNPage,
+  fetchMDNData,
   fetchBrowserSupportFromMDN,
   fetchCSSPropertyDetailsFromMDN,
 } from "./css/mdnClient.js";

@@ -15,3 +15,6 @@ export * from './mdnClient.js';
 
 // Implementation guidance
 export * from './guidance.js';
+
+// Project context analysis
+export * from './contextAnalyzer.js';

@@ -107,7 +107,7 @@ export interface CSSFeature {
   /** Feature description */
   description: string;
   /** Browser support level */
-  support_level: 'excellent' | 'good' | 'moderate' | 'limited';
+  support_level: 'excellent' | 'good' | 'moderate' | 'limited' | 'experimental';
   /** MDN documentation URL */
   mdn_url: string;
 }
