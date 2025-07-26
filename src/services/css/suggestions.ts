@@ -6,7 +6,7 @@ import { CSSPropertySuggestion, CSSFeatureCategory } from './types.js';
 import { searchFeatures, getCarouselFeatures } from './features.js';
 import { fetchBrowserSupportFromMDN, fetchMDNData } from './mdnClient.js';
 import { analyzeProjectContext, getFrameworkSpecificRecommendations, getCSSFrameworkRecommendations } from './contextAnalyzer.js';
-import { rankByLogicalPreference, getWritingModeRecommendations, getLogicalAlternative } from './logicalUnitsPreference.js';
+import { rankByLogicalPreference, getWritingModeRecommendations } from './logicalUnitsPreference.js';
 
 /** Intent patterns for semantic analysis */
 const INTENT_PATTERNS = {
@@ -257,6 +257,7 @@ async function searchWithIntelligentRanking(
   // Get features based on suggested categories with higher priority
   for (const category of analysis.suggestedCategories) {
     const categoryFeatures = searchFeatures(analysis.keywords);
+    // Category is used implicitly for prioritization
     
     for (const feature of categoryFeatures) {
       const mdnData = await fetchMDNData(feature.properties[0]);
@@ -311,7 +312,7 @@ async function searchWithIntelligentRanking(
 function calculateRelevanceScore(
   feature: any,
   analysis: any,
-  projectContext?: any
+  _projectContext?: any
 ): number {
   let score = 0;
   

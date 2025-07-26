@@ -1,8 +1,8 @@
 {
   "name": "@depthark/css-first",
-  "description": "MCP server for CSS first search",
+  "description": "Advanced MCP server for intelligent, context-aware CSS suggestions with logical units, container queries, and automated feature discovery",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "bugs": {
     "url": "https://github.com/luko248/mcp-css-first/issues"
   },
@@ -15,17 +15,35 @@
     "css",
     "modelcontextprotocol",
     "mcp",
-    "css",
     "mdn",
-    "web-development"
+    "web-development",
+    "css-suggestions",
+    "container-queries",
+    "logical-units",
+    "internationalization",
+    "responsive-design",
+    "css-automation",
+    "context7",
+    "semantic-analysis",
+    "writing-mode",
+    "rtl-support",
+    "dynamic-viewport",
+    "modern-css",
+    "ai-css-assistant"
   ],
   "bin": {
     "mcp-css-first": "dist/cli.js"
   },
   "files": [
     "dist/cli.js",
-    "src"
+    "src",
+    "README.md",
+    "LICENSE"
   ],
+  "main": "dist/cli.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "ncc build src/index.ts --minify --out dist/ && echo '#!/usr/bin/env node' | cat - dist/index.js > dist/cli.js && chmod +x dist/cli.js",
     "dev": "tsc --watch",
@@ -34,7 +52,10 @@
     "typecheck": "tsc --noEmit",
     "start": "node dist/cli.js",
     "update-features": "tsx src/scripts/updateFeatures.ts",
-    "discover-features": "tsx src/services/css/featureDiscovery.ts"
+    "discover-features": "tsx src/services/css/featureDiscovery.ts",
+    "prepublishOnly": "npm run typecheck && npm run build",
+    "version": "npm run build && git add dist/",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "~1.13",

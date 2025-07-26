@@ -4,6 +4,8 @@
  * Uses context7 MCP to fetch latest CSS features from MDN and update feature modules
  */
 
+/* eslint-disable no-console */
+
 import { discoverRecentCSSFeatures, convertToStandardFeatures } from '../services/css/featureDiscovery.js';
 import { writeFileSync, readFileSync } from 'fs';
 import { join } from 'path';
@@ -26,11 +28,10 @@ async function updateModernFeaturesModule() {
     
     // Read current modern features file
     const modernFeaturesPath = join(process.cwd(), 'src/services/css/features/modern/properties.ts');
-    let currentContent = '';
     
     try {
-      currentContent = readFileSync(modernFeaturesPath, 'utf-8');
-    } catch (error) {
+      readFileSync(modernFeaturesPath, 'utf-8');
+    } catch {
       console.log('📝 Creating new modern features file...');
     }
     

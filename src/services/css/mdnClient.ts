@@ -88,7 +88,7 @@ async function callContext7MCP(cssProperty: string): Promise<any> {
   try {
     // This would be the actual implementation to call context7 MCP
     // For now, we simulate the call
-    const mdnUrl = `https://developer.mozilla.org/en-US/docs/Web/CSS/${cssProperty}`;
+    const _mdnUrl = `https://developer.mozilla.org/en-US/docs/Web/CSS/${cssProperty}`;
     
     // Simulate context7 MCP response structure
     const mockResponse = {
@@ -96,7 +96,7 @@ async function callContext7MCP(cssProperty: string): Promise<any> {
       metadata: {
         source: 'MDN',
         lastModified: new Date().toISOString(),
-        url: mdnUrl
+        url: _mdnUrl
       }
     };
     
@@ -366,6 +366,11 @@ async function getRelatedPropertiesFromContext7(cssProperty: string): Promise<st
   // This would query context7's MDN data for related properties
   return getRelatedProperties(cssProperty);
 }
+
+// These functions are currently unused but kept for future context7 integration
+void getBrowserSupportFromContext7;
+void getExamplesFromContext7;
+void getRelatedPropertiesFromContext7;
 
 /**
  * Enhanced browser support fetching with context7 integration

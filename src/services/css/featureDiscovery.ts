@@ -3,6 +3,8 @@
  * Discovers and categorizes recent CSS features from MDN documentation
  */
 
+/* eslint-disable no-console */
+
 import { CSSFeature, CSSFeatureCategory } from './types.js';
 
 /** Context7 MCP integration for MDN documentation */
@@ -190,7 +192,7 @@ async function fetchMDNWithContext7(topic: string): Promise<Context7Response | n
   try {
     // This would be the actual context7 integration
     // For now, we'll simulate the response structure
-    const mdnUrl = `https://developer.mozilla.org/en-US/docs/Web/CSS/${topic}`;
+    const _mdnUrl = `https://developer.mozilla.org/en-US/docs/Web/CSS/${topic}`;
     
     // Simulate context7 response with structured MDN data
     // In real implementation, this would use the actual context7 MCP
@@ -591,8 +593,8 @@ export async function discoverRecentCSSFeatures(): Promise<DiscoveredFeature[]> 
       discoveredFeatures.push(discoveredFeature);
       console.log(`✅ Discovered ${feature} -> ${category} (${supportLevel})`);
       
-    } catch (error) {
-      console.error(`❌ Error discovering ${feature}:`, error);
+    } catch {
+      console.error(`❌ Error discovering ${feature}`);
     }
   }
   

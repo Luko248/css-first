@@ -18,7 +18,6 @@ import { z } from 'zod';
 
 import { version } from '../package.json';
 import {
-  extractCSSKeywords,
   searchMDNForCSSProperties,
   fetchBrowserSupportFromMDN,
   fetchCSSPropertyDetailsFromMDN,

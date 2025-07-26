@@ -1,0 +1,48 @@
+# Source files (keep only dist)
+*.ts
+!*.d.ts
+tsconfig.json
+eslint.config.mjs
+
+# Development files
+node_modules/
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Test files
+test/
+tests/
+*.test.*
+*.spec.*
+
+# Documentation source
+docs/
+
+# Development tools
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Build artifacts
+.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Keep essential files
+!README.md
+!LICENSE
+!package.json
+!dist/cli.js
