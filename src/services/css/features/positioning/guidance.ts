@@ -140,6 +140,89 @@ export const POSITIONING_GUIDANCE: Record<string, ImplementationGuidance> = {
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }`
   },
+  "position-sticky": {
+    basic_usage: `.sticky-header {
+  position: sticky;
+  top: 0;
+}`,
+    best_practices: [
+      "Avoid full-height sticky elements on mobile devices - they can cause usability issues",
+      "Use reasonable heights for sticky headers (max 15-20% of viewport height)",
+      "Ensure sticky elements don't cover important content",
+      "Consider using position: fixed with JavaScript for complex sticky behavior",
+      "Test sticky positioning on various mobile devices and orientations"
+    ],
+    fallbacks: [
+      "Use position: fixed with JavaScript scroll handlers for older browsers",
+      "Implement intersection observer for sticky-like behavior",
+      "Use CSS transforms for pseudo-sticky effects"
+    ],
+    example_code: `/* Good: Reasonable height sticky header */
+.header {
+  position: sticky;
+  top: 0;
+  height: 60px; /* Reasonable height */
+  background: white;
+  border-bottom: 1px solid #eee;
+  z-index: 100;
+}
+
+/* Avoid: Full height sticky on mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    /* DON'T: position: sticky; height: 100vh; */
+    /* Instead use: */
+    position: static;
+  }
+}
+
+/* Good: Responsive sticky navigation */
+.nav {
+  position: sticky;
+  top: 0;
+  background: var(--surface-color);
+  padding: 0.5rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    height: 56px; /* Mobile-appropriate height */
+    padding: 0.25rem 1rem;
+  }
+}
+
+/* Advanced: Conditional sticky with CSS */
+.conditional-sticky {
+  position: sticky;
+  top: 0;
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .conditional-sticky {
+    position: static; /* Disable on mobile landscape */
+  }
+}
+
+/* Sticky with safe areas for mobile */
+.mobile-sticky {
+  position: sticky;
+  top: env(safe-area-inset-top);
+  padding: 0.5rem;
+}
+
+/* Fallback for unsupported browsers */
+@supports not (position: sticky) {
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+  
+  body {
+    padding-top: 60px; /* Account for fixed header */
+  }
+}`
+  },
   "position-try": {
     basic_usage: `@position-try --tooltip-fallback {
   position-area: bottom;

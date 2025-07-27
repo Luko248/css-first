@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2025-01-27
+
+### 🛡️ Accessibility & Best Practices
+
+#### **Enhanced Accessibility Support**
+- **NEW**: Comprehensive `prefers-reduced-motion` support across all animation examples
+- **NEW**: Hover media query guidance (`@media (hover: hover)`) to prevent touch device issues
+- **NEW**: Mobile-specific interaction patterns with proper touch alternatives
+- **IMPROVED**: All animation properties now include accessibility-first examples
+
+#### **Mobile-First Design Improvements**
+- **NEW**: Guidance against full-height sticky headers on mobile devices
+- **NEW**: Responsive sticky positioning with proper mobile constraints
+- **NEW**: Touch-friendly interaction patterns with `@media (pointer: coarse)`
+- **ADDED**: Safe area inset support for mobile sticky elements
+
+#### **Modern Theming Best Practices**
+- **WARNING**: Added guidance against combining `light-dark()` with `prefers-color-scheme`
+- **NEW**: Comprehensive `light-dark()` function implementation examples
+- **NEW**: Anti-pattern documentation for theme conflicts
+- **ADDED**: CSS-only theme system with proper color-scheme declaration
+
+#### **Code Quality & Standards**
+- **ENHANCED**: All animation guidance includes motion accessibility
+- **STANDARDIZED**: Hover effects properly wrapped in media queries
+- **IMPROVED**: Touch device alternatives for all interactive elements
+- **ENFORCED**: Accessibility-first approach across all CSS examples
+
+### 🔧 Technical Improvements
+- **ADDED**: Position sticky guidance with mobile best practices
+- **ENHANCED**: Animation timing functions with reduced motion support
+- **IMPROVED**: Interaction guidance with comprehensive hover/touch patterns
+- **UPDATED**: Modern CSS guidance with proper fallback strategies
+
+---
+
 ## [1.1.0] - 2025-01-27
 
 ### 🚀 Major Improvements

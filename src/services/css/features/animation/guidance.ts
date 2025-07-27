@@ -169,7 +169,8 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
       'Use ease-out for entrances',
       'Use ease-in for exits',
       'Use ease-in-out for smooth interactions',
-      'Consider cubic-bezier for custom easing'
+      'Consider cubic-bezier for custom easing',
+      'Always include prefers-reduced-motion support'
     ],
     fallbacks: [
       'Use linear for older browsers',
@@ -196,6 +197,18 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
 
 .spring {
   animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Accessibility: Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .entrance,
+  .exit,
+  .bounce,
+  .smooth,
+  .spring {
+    animation-timing-function: ease;
+    animation-duration: 0.01ms;
+  }
 }`
   },
   '@starting-style': {
@@ -204,7 +217,8 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
       'Use for animating display property changes',
       'Combine with transition for smooth entry animations',
       'Essential for height/width auto animations',
-      'Works with discrete property changes'
+      'Works with discrete property changes',
+      'Always include prefers-reduced-motion support'
     ],
     fallbacks: [
       'Use JavaScript for older browsers',
@@ -240,6 +254,27 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
   }
 }
 
+/* Accessibility: Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .dialog {
+    transition: none;
+  }
+  
+  .expandable {
+    transition: none;
+  }
+  
+  @starting-style {
+    .dialog[open] {
+      opacity: 1;
+    }
+    
+    .expandable {
+      height: auto;
+    }
+  }
+}
+
 /* Fallback for older browsers */
 @supports not (interpolate-size: allow-keywords) {
   .expandable {
@@ -257,7 +292,8 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
       'Enable smooth animations of auto, min-content, max-content',
       'Combine with @starting-style for display animations',
       'Use for height/width transitions with intrinsic sizing',
-      'Essential for modern layout animations'
+      'Essential for modern layout animations',
+      'Always include prefers-reduced-motion support'
     ],
     fallbacks: [
       'Use fixed dimensions for older browsers',
@@ -315,6 +351,26 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
 
 .slide-in.active {
   transform: translateX(0);
+}
+
+/* Accessibility: Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .sidebar,
+  .gpu-optimized,
+  .slide-in {
+    transition: none;
+  }
+  
+  .slide-in.active {
+    transform: translateX(0);
+  }
+  
+  @starting-style {
+    .container {
+      height: auto;
+    }
+  }
 }`
   },
   'scroll-timeline': {
@@ -323,7 +379,8 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
       'Use descriptive timeline names',
       'Choose appropriate scroll axis (block, inline, x, y)',
       'Combine with animation-timeline for scroll-driven animations',
-      'Consider browser support for progressive enhancement'
+      'Consider browser support for progressive enhancement',
+      'Always include prefers-reduced-motion support'
     ],
     fallbacks: [
       'Use Intersection Observer API for older browsers',
@@ -362,6 +419,14 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
   scroll-timeline: vertical-timeline block;
 }
 
+/* Accessibility: Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar {
+    animation: none;
+    transform: scaleX(1); /* Show completed state */
+  }
+}
+
 /* Fallback using Intersection Observer */
 @supports not (animation-timeline: scroll()) {
   .progress-bar {
@@ -375,7 +440,8 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
       'Use for animations triggered by element visibility',
       'Combine with animation-range for precise control',
       'Consider view-timeline-inset for offset adjustments',
-      'Use meaningful timeline names'
+      'Use meaningful timeline names',
+      'Always include prefers-reduced-motion support'
     ],
     fallbacks: [
       'Intersection Observer API',
@@ -427,6 +493,16 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
 .parallax-element {
   view-timeline: parallax-view;
   view-timeline-inset: 100px 50px;
+}
+
+/* Accessibility: Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .card-content,
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }`
   },
   'animation-timeline': {

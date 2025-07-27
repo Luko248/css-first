@@ -2,14 +2,14 @@
   "name": "@depthark/css-first",
   "description": "Advanced MCP server for intelligent, context-aware CSS suggestions with logical units, container queries, and automated feature discovery",
   "license": "MIT",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "bugs": {
-    "url": "https://github.com/luko248/mcp-css-first/issues"
+    "url": "https://github.com/luko248/css-first/issues"
   },
-  "homepage": "https://github.com/luko248/mcp-css-first#readme",
+  "homepage": "https://github.com/luko248/css-first#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luko248/mcp-css-first.git"
+    "url": "git+https://github.com/luko248/css-first.git"
   },
   "keywords": [
     "css",

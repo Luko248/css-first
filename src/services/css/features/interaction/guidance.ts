@@ -296,6 +296,124 @@ export const INTERACTION_GUIDANCE: Record<string, ImplementationGuidance> = {
   }
 }`
   },
+  'hover-media-queries': {
+    basic_usage: '@media (hover: hover) { .element:hover { background: blue; } }',
+    best_practices: [
+      'Always wrap hover effects in @media (hover: hover) to prevent on touch devices',
+      'Use @media (pointer: fine) for precise pointer interactions',
+      'Provide alternative feedback for touch devices',
+      'Test hover behavior on both desktop and mobile devices',
+      'Consider using @media (any-hover: hover) for devices with mixed input methods'
+    ],
+    fallbacks: [
+      'Use touch events like :active for mobile interactions',
+      'Provide button states that work without hover',
+      'Use JavaScript touch/click event handling'
+    ],
+    example_code: `
+/* ✅ CORRECT: Hover effects only on devices that support hover */
+.button {
+  background: #blue;
+  transition: background-color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .button:hover {
+    background: #darkblue;
+  }
+}
+
+/* Alternative touch feedback */
+.button:active {
+  background: #darkblue;
+  transform: scale(0.98);
+}
+
+/* ❌ INCORRECT: Hover effects on all devices including touch */
+.button:hover {
+  background: #darkblue; /* Will trigger on touch and cause issues */
+}
+
+/* Advanced: Fine pointer interactions */
+@media (pointer: fine) {
+  .tooltip-trigger:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Coarse pointer (touch) alternative */
+@media (pointer: coarse) {
+  .tooltip-trigger:active .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Mixed input devices */
+@media (any-hover: hover) {
+  .nav-item:hover .submenu {
+    display: block;
+  }
+}
+
+@media (any-hover: none) {
+  .nav-item .submenu-toggle {
+    display: block; /* Show toggle button on touch-only devices */
+  }
+}
+
+/* Card interactions with proper hover handling */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+}
+
+/* Touch device feedback */
+.card:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Complex interaction patterns */
+.interactive-element {
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interactive-element:hover {
+    background: var(--hover-bg);
+  }
+  
+  .interactive-element:hover::after {
+    content: "Click for more details";
+    position: absolute;
+    /* tooltip styles */
+  }
+}
+
+@media (pointer: coarse) {
+  .interactive-element {
+    min-height: 44px; /* Larger touch target */
+    padding: 12px; /* More generous padding */
+  }
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .card,
+  .interactive-element {
+    transition: none;
+  }
+}`
+  },
   'scroll-margin': {
     basic_usage: '.item { scroll-margin: 1rem; }',
     best_practices: [

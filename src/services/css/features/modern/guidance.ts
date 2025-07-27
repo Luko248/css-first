@@ -306,6 +306,80 @@ export const MODERN_CSS_GUIDANCE = {
       'CSS Grid/Flexbox positioning',
       'Fixed positioning with transforms'
     ]
+  },
+
+  'CSS light-dark() Function': {
+    implementation: `
+/* Set up color scheme support */
+:root {
+  color-scheme: light dark;
+}
+
+/* Use light-dark() for theme-aware colors */
+.element {
+  background: light-dark(white, #1a1a1a);
+  color: light-dark(#333, #f0f0f0);
+  border: 1px solid light-dark(#ddd, #444);
+}
+
+/* Complex color mixing with light-dark() */
+.card {
+  background: light-dark(
+    color-mix(in srgb, white 95%, blue),
+    color-mix(in srgb, #1a1a1a 95%, cyan)
+  );
+  box-shadow: 0 2px 8px light-dark(
+    rgba(0,0,0,0.1),
+    rgba(255,255,255,0.1)
+  );
+}`,
+    bestPractices: [
+      'ALWAYS declare color-scheme: light dark on :root when using light-dark()',
+      'DO NOT combine light-dark() with @media (prefers-color-scheme) - they conflict',
+      'Use light-dark() for automatic theme switching based on user preference',
+      'Provide semantically appropriate colors for both light and dark values',
+      'Test both themes for accessibility compliance',
+      'Use with CSS custom properties for maintainable theme systems',
+      'Consider using with color-mix() for sophisticated color schemes'
+    ],
+    browserSupport: 'Chrome 123+, Firefox 120+, Safari 17.5+',
+    fallbacks: [
+      'Use @media (prefers-color-scheme) with CSS custom properties',
+      'JavaScript-based theme switching',
+      'CSS custom properties with manual class toggling',
+      'Build-time theme generation'
+    ],
+    antiPatterns: [
+      'DON\'T: Combining light-dark() with prefers-color-scheme media queries',
+      'DON\'T: Using light-dark() without color-scheme declaration',
+      'DON\'T: Using identical values for light and dark (defeats the purpose)',
+      'DON\'T: Overriding light-dark() with manual theme classes'
+    ],
+    correctExample: `
+/* ✅ CORRECT: Use light-dark() OR prefers-color-scheme, not both */
+:root {
+  color-scheme: light dark;
+}
+
+.theme-aware {
+  background: light-dark(white, #1a1a1a);
+  color: light-dark(#333, #f0f0f0);
+}`,
+    incorrectExample: `
+/* ❌ INCORRECT: Don't combine light-dark() with prefers-color-scheme */
+:root {
+  color-scheme: light dark;
+}
+
+.conflicted {
+  background: light-dark(white, #1a1a1a);
+}
+
+@media (prefers-color-scheme: dark) {
+  .conflicted {
+    background: #2a2a2a; /* Conflicts with light-dark() */
+  }
+}`
   }
 };
 
