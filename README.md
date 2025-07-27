@@ -1,5 +1,7 @@
 # MCP CSS First
 
+[![smithery badge](https://smithery.ai/badge/mcp-css-first)](https://smithery.ai/server/mcp-css-first)
+
 An MCP (Model Context Protocol) server that provides CSS-first solutions for UI implementation tasks. This server integrates with Mozilla Developer Network (MDN) documentation to suggest CSS properties, check browser support, and provide implementation guidance with user consent mechanisms.
 
 ## Features
@@ -12,6 +14,15 @@ An MCP (Model Context Protocol) server that provides CSS-first solutions for UI 
 
 ## Installation
 
+### Installing via Smithery
+
+To install mcp-css-first for Claude Desktop automatically via [Smithery](https://smithery.ai/server/mcp-css-first):
+
+```bash
+npx -y @smithery/cli install mcp-css-first --client claude
+```
+
+### Manual Installation
 ```bash
 pnpm install
 pnpm run build
