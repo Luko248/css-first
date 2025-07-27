@@ -2,7 +2,7 @@
   "name": "@depthark/css-first",
   "description": "Advanced MCP server for intelligent, context-aware CSS suggestions with logical units, container queries, and automated feature discovery",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "bugs": {
     "url": "https://github.com/luko248/mcp-css-first/issues"
   },
@@ -32,7 +32,7 @@
     "ai-css-assistant"
   ],
   "bin": {
-    "mcp-css-first": "dist/cli.js"
+    "css-first": "dist/cli.js"
   },
   "files": [
     "dist/cli.js",

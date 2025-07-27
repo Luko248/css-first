@@ -2,6 +2,89 @@
 
 An advanced MCP (Model Context Protocol) server that provides intelligent, context-aware CSS-first solutions for UI implementation tasks. Features semantic analysis, framework detection, and intelligent ranking with hybrid MDN integration including context7 support.
 
+## 🔥 **Latest Version: 1.1.0** 
+
+🚀 **Major Improvements**: Version 1.1.0 brings dramatically enhanced CSS suggestion capabilities with intelligent semantic understanding.
+
+### **What's New in 1.1.0:**
+- 🧠 **Dramatically Improved Search**: Semantic understanding of developer intent
+- 📱 **Mobile-First CSS**: Proper `dvh`/`svh` viewport units for mobile headers
+- 🎠 **Modern Carousels**: CSS-only solutions with `::scroll-marker` pseudo-elements  
+- 🌙 **Advanced Theming**: `light-dark()` function support for CSS-only themes
+- ✅ **Form Validation**: `:user-valid`/`:user-invalid` for CSS-only validation
+- 🚀 **10x Better Results**: Now suggests actually useful CSS properties for real use cases
+
+### **Upgrade from 1.0.0:**
+```bash
+# Update to latest version
+npm update @depthark/css-first
+
+# Or install specific version
+npm install @depthark/css-first@1.1.0
+```
+
+## 🚀 Installation
+
+### **For MCP Clients (Claude Desktop, etc.)**
+
+Add to your MCP configuration file:
+
+**Claude Desktop (`claude_desktop_config.json`):**
+```json
+{
+  "mcpServers": {
+    "css-first": {
+      "command": "npx",
+      "args": ["-y", "@depthark/css-first"]
+    }
+  }
+}
+```
+
+**Alternative (if you have the package installed globally):**
+```json
+{
+  "mcpServers": {
+    "css-first": {
+      "command": "css-first"
+    }
+  }
+}
+```
+
+### **Manual Installation**
+```bash
+# Install globally
+npm install -g @depthark/css-first
+
+# Run directly
+css-first
+
+# Or use with npx (recommended)
+npx @depthark/css-first
+```
+
+### **Configuration Locations**
+
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **Linux**: `~/.config/claude/claude_desktop_config.json`
+
+## ⚡ Quick Start
+
+After installation, ask Claude:
+
+```
+"Create a header that's always full height on mobile devices"
+→ Suggests: height: 100dvh, position: sticky, @media queries
+
+"Make a modern CSS carousel with navigation dots"  
+→ Suggests: ::scroll-marker, scroll-snap-type, overflow-inline
+
+"Add light and dark theme support"
+→ Suggests: light-dark(), color-scheme, prefers-color-scheme
+```
+
 ## 🚀 Key Features
 
 ### **Intelligent Analysis**

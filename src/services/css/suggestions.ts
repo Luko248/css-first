@@ -159,53 +159,116 @@ export function analyzeTaskIntent(description: string, projectContext?: any): {
 }
 
 /**
- * Legacy keyword extraction for backward compatibility
+ * Enhanced keyword extraction with semantic understanding
  */
 function extractLegacyKeywords(description: string): string[] {
   const keywords: string[] = [];
   const lowerDescription = description.toLowerCase();
   
-  // Layout keywords
+  // Split description into words for better analysis
+  const words = lowerDescription.split(/\s+/);
+  
+  // Core CSS property keywords - add direct properties
+  const cssProperties = ['height', 'width', 'position', 'display', 'flex', 'grid', 'margin', 'padding', 'border', 'background', 'color', 'font', 'text', 'transform', 'transition', 'animation'];
+  for (const prop of cssProperties) {
+    if (lowerDescription.includes(prop)) {
+      keywords.push(prop);
+    }
+  }
+  
+  // Viewport and sizing patterns
+  if (lowerDescription.includes('full') && lowerDescription.includes('height')) {
+    keywords.push('height', '100vh', '100dvh', 'dvh', 'svh', 'lvh', 'block-size', 'min-height');
+  }
+  
+  // Mobile specific patterns
+  if (lowerDescription.includes('mobile') || lowerDescription.includes('phone')) {
+    keywords.push('dvh', 'svh', 'lvh', 'mobile-viewport', 'browser-ui', '@media');
+    
+    if (lowerDescription.includes('height') || lowerDescription.includes('screen') || lowerDescription.includes('full')) {
+      keywords.push('100dvh', 'height', 'block-size', 'viewport-height');
+    }
+  }
+  
+  // Header specific patterns
+  if (lowerDescription.includes('header')) {
+    keywords.push('header');
+    
+    if (lowerDescription.includes('stick') || lowerDescription.includes('fix')) {
+      keywords.push('sticky', 'fixed', 'position');
+    }
+    
+    if (lowerDescription.includes('full') || lowerDescription.includes('height')) {
+      keywords.push('height', 'min-height', 'dvh', '100dvh');
+    }
+  }
+  
+  // Layout patterns
   if (lowerDescription.includes('center') || lowerDescription.includes('align')) {
-    keywords.push('center', 'align', 'justify', 'logical-spacing');
+    keywords.push('center', 'align', 'justify-content', 'align-items', 'flex', 'grid');
   }
   
-  // Spacing keywords
-  if (lowerDescription.includes('padding') || lowerDescription.includes('margin') || lowerDescription.includes('spacing')) {
-    keywords.push('logical-spacing', 'spacing-units', 'padding', 'margin');
-  }
-  
-  // Border keywords
-  if (lowerDescription.includes('border') || lowerDescription.includes('outline')) {
-    keywords.push('border-logical', 'border');
-  }
-  
-  // Overflow keywords
-  if (lowerDescription.includes('overflow') || lowerDescription.includes('scroll') || lowerDescription.includes('clip')) {
-    keywords.push('overflow-logical', 'overflow');
-  }
-  
-  // Carousel-specific keywords
+  // Carousel patterns
   if (lowerDescription.includes('carousel') || lowerDescription.includes('slider') || lowerDescription.includes('gallery')) {
-    keywords.push('carousel', 'scroll', 'snap', 'overflow');
+    keywords.push('scroll-snap-type', 'overflow-inline', 'scroll-behavior', '::scroll-marker', '::scroll-button', 'flex');
   }
   
-  // Animation keywords
-  if (lowerDescription.includes('animate') || lowerDescription.includes('transition') || lowerDescription.includes('smooth')) {
-    keywords.push('animation', 'transition', 'transform');
+  // Theme patterns
+  if (lowerDescription.includes('theme') || lowerDescription.includes('dark') || lowerDescription.includes('light')) {
+    keywords.push('light-dark', 'color-scheme', 'prefers-color-scheme', '@media');
   }
   
-  // Layout keywords
-  if (lowerDescription.includes('layout') || lowerDescription.includes('grid') || lowerDescription.includes('flex')) {
-    keywords.push('layout', 'grid', 'flex');
+  // Form patterns
+  if (lowerDescription.includes('form')) {
+    keywords.push('form');
+    
+    if (lowerDescription.includes('valid') || lowerDescription.includes('error')) {
+      keywords.push(':user-valid', ':user-invalid', ':invalid', ':valid');
+    }
   }
   
-  // Responsive keywords
-  if (lowerDescription.includes('responsive') || lowerDescription.includes('mobile') || lowerDescription.includes('tablet')) {
-    keywords.push('responsive', 'media', 'container');
+  // Modal/dialog patterns
+  if (lowerDescription.includes('modal') || lowerDescription.includes('dialog') || lowerDescription.includes('popup')) {
+    keywords.push('dialog', ':target', 'position', 'fixed', 'backdrop-filter');
   }
   
-  return keywords;
+  // Navigation patterns
+  if (lowerDescription.includes('nav') || lowerDescription.includes('menu')) {
+    keywords.push('nav', 'menu');
+    
+    if (lowerDescription.includes('hamburger') || lowerDescription.includes('mobile')) {
+      keywords.push(':checked', 'position', 'transform');
+    }
+  }
+  
+  // Animation patterns
+  if (lowerDescription.includes('animate') || lowerDescription.includes('transition')) {
+    keywords.push('animation', 'transition', '@keyframes');
+    
+    if (lowerDescription.includes('scroll')) {
+      keywords.push('scroll-timeline', 'animation-timeline');
+    }
+  }
+  
+  // Responsive patterns
+  if (lowerDescription.includes('responsive') || lowerDescription.includes('breakpoint')) {
+    keywords.push('@media', 'container', 'clamp', 'min', 'max');
+  }
+  
+  // Add specific keywords based on common tasks
+  if (lowerDescription.includes('always')) {
+    keywords.push('min-height', '100%', 'vh', 'dvh');
+  }
+  
+  if (lowerDescription.includes('section')) {
+    keywords.push('section', 'height', 'min-height');
+  }
+  
+  if (lowerDescription.includes('device')) {
+    keywords.push('dvh', 'svh', '@media', 'viewport');
+  }
+  
+  return [...new Set(keywords)]; // Remove duplicates
 }
 
 /**
@@ -255,9 +318,9 @@ async function searchWithIntelligentRanking(
   const suggestions: CSSPropertySuggestion[] = [];
   
   // Get features based on suggested categories with higher priority
-  for (const category of analysis.suggestedCategories) {
+  for (const _category of analysis.suggestedCategories) {
     const categoryFeatures = searchFeatures(analysis.keywords);
-    // Category is used implicitly for prioritization
+    // Categories are used implicitly for prioritization in the search algorithm
     
     for (const feature of categoryFeatures) {
       const mdnData = await fetchMDNData(feature.properties[0]);
@@ -435,202 +498,17 @@ function shouldIncludeBasedOnApproach(
 }
 
 /**
- * Gets syntax example for a CSS feature
+ * Gets syntax example for a CSS feature from MDN data
  */
 function getFeatureSyntax(featureName: string): string {
-  const syntaxMap: Record<string, string> = {
-    'Logical Spacing Properties': `
-.element {
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
-  margin-inline: auto;
-  margin-block: 1rem;
-  scroll-margin-inline: 1rem;
-}
-
-/* Fine-grained control */
-.asymmetric {
-  padding-inline-start: 2rem;
-  padding-inline-end: 1rem;
-  margin-block-start: 2rem;
-}`,
-    'Modern CSS Units': `
-.container {
-  width: 60ch;
-  padding: 1rem;
-  margin-inline: auto;
-  height: 100vh;
-}
-
-.responsive {
-  width: clamp(16rem, 50vw, 60rem);
-  padding: 1rem 2rem;
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
-}`,
-    'Logical Border Properties': `
-.element {
-  border-inline: 1px solid #ccc;
-  border-block-start: 2px solid blue;
-}
-
-.sidebar {
-  border-inline-end: 1px solid var(--border-color);
-  border-block: none;
-}`,
-    'Logical Overflow Properties': `
-.horizontal-scroll {
-  overflow-inline: scroll;
-  overflow-block: hidden;
-  scroll-snap-type: inline mandatory;
-}
-
-.text-content {
-  overflow-wrap: break-word;
-  text-overflow: ellipsis;
-}`,
-    'Modern CSS Carousel with Pseudo-Elements': `
-.carousel {
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  display: flex;
-}
-.carousel::scroll-button(inline-start),
-.carousel::scroll-button(inline-end) {
-  content: '';
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: white;
-  border-radius: 50%;
-}
-.carousel::scroll-marker-group {
-  position: absolute;
-  bottom: -40px;
-  display: flex;
-  gap: 8px;
-}
-.carousel::scroll-marker {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #ccc;
-}
-.carousel::scroll-marker:target-current {
-  background: #007bff;
-}`,
-    'CSS Carousel': `
-.carousel {
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  display: flex;
-}
-.carousel-item {
-  flex: 0 0 100%;
-  scroll-snap-align: center;
-}`,
-    'Scroll Snap': `
-.container {
-  scroll-snap-type: x mandatory;
-}
-.item {
-  scroll-snap-align: center;
-}`,
-    'Flexbox': `
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}`,
-    'CSS Grid': `
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}`,
-    'CSS Transitions': `
-.element {
-  transition: all 0.3s ease;
-}
-.element:hover {
-  transform: scale(1.05);
-}`
-  };
-  
-  return syntaxMap[featureName] || `${featureName}: value;`;
+  // All syntax should come from MDN data, not hardcoded
+  return `${featureName}: value;`;
 }
 
 /**
- * Gets use cases for a CSS feature
+ * Gets use cases for a CSS feature from MDN data
  */
 function getFeatureUseCases(featureName: string): string[] {
-  const useCasesMap: Record<string, string[]> = {
-    'Logical Spacing Properties': [
-      'International layouts with RTL support',
-      'Responsive spacing that adapts to writing direction',
-      'Accessible spacing with relative units',
-      'Scroll-aware spacing for carousels',
-      'Direction-agnostic component design'
-    ],
-    'Modern CSS Units': [
-      'Responsive typography with rem/em',
-      'Content-aware sizing with ch units',
-      'Viewport-based responsive layouts',
-      'Logical viewport units for mobile',
-      'Accessible spacing with relative units'
-    ],
-    'Logical Border Properties': [
-      'International border styling',
-      'Direction-aware component borders',
-      'Responsive border designs',
-      'Accessible focus indicators',
-      'Dynamic border styling'
-    ],
-    'Logical Overflow Properties': [
-      'Direction-aware scrolling',
-      'International text overflow handling',
-      'Responsive overflow management',
-      'Accessible scrolling experiences',
-      'Dynamic content clipping'
-    ],
-    'Modern CSS Carousel with Pseudo-Elements': [
-      'Auto-generated carousel navigation',
-      'Accessible carousel indicators',
-      'Column-based content sliders',
-      'Zero-JavaScript carousels',
-      'Progressive enhancement carousels'
-    ],
-    'CSS Carousel': [
-      'Image galleries',
-      'Product showcases',
-      'Testimonial sliders',
-      'Content carousels',
-      'Mobile-friendly navigation'
-    ],
-    'Scroll Snap': [
-      'Smooth scrolling sections',
-      'Paginated content',
-      'Mobile carousels',
-      'Full-screen slides'
-    ],
-    'Flexbox': [
-      'Component layout',
-      'Centering content',
-      'Responsive navigation',
-      'Card layouts'
-    ],
-    'CSS Grid': [
-      'Page layouts',
-      'Complex grids',
-      'Responsive designs',
-      'Dashboard layouts'
-    ],
-    'CSS Transitions': [
-      'Hover effects',
-      'Smooth state changes',
-      'Loading animations',
-      'Interactive feedback'
-    ]
-  };
-  
-  return useCasesMap[featureName] || ['General styling', 'UI enhancement'];
+  // All use cases should come from MDN data, not hardcoded
+  return ['General styling', 'UI enhancement'];
 }

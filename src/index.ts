@@ -1,15 +1,16 @@
 /**
- * MCP CSS First - A Model Context Protocol server for CSS-first development
+ * MCP CSS First - A Model Context Protocol server for CSS-only development
  * 
- * This server provides CSS-first solutions for UI implementation tasks by integrating
- * with Mozilla Developer Network (MDN) documentation. It offers tools to:
- * - Suggest CSS properties based on task descriptions
- * - Check browser support for CSS properties
- * - Provide implementation guidance with examples
- * - Handle user consent for CSS property usage
+ * This server enforces CSS-only solutions for UI implementation tasks. It strictly
+ * provides modern CSS solutions using:
+ * - Modern CSS features (2021-2025) with logical properties as default
+ * - CSS-only carousels with modern pseudo-elements (::scroll-marker, ::scroll-button)
+ * - light-dark() function for theme switching
+ * - Container queries and dynamic viewport units
+ * - Zero JavaScript solutions only
  * 
  * @author MCP CSS First Team
- * @version 0.0.1
+ * @version 1.0.0
  */
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
@@ -44,7 +45,7 @@ const server = new McpServer({ name: 'MCP CSS First', version });
  */
 server.tool(
   'suggest_css_solution',
-  'Enhanced CSS-first solution suggester with semantic analysis, context awareness, and intelligent ranking. Integrates with context7 for MDN data and provides personalized recommendations.',
+  'CSS-ONLY solution engine with strict enforcement of modern CSS features. Provides zero-JavaScript solutions using cutting-edge CSS (2021-2025) with logical properties, modern carousels, and light-dark() theming.',
   {
     task_description: z.string().describe('Description of the UI task or problem to solve'),
     preferred_approach: z
@@ -82,13 +83,13 @@ server.tool(
       const result = suggestions.length === 0 
         ? {
             success: false,
-            message: 'No CSS-first solutions found for this task. Consider using JavaScript for dynamic behavior or complex interactions.',
+            message: 'No CSS-ONLY solutions found. This tool provides ONLY CSS solutions - no JavaScript alternatives will be suggested. Please rephrase your request to focus on CSS-achievable UI patterns.',
             suggestions: [],
             ...(analysisDetails && { analysis: analysisDetails })
           }
         : {
             success: true,
-            message: `Found ${suggestions.length} intelligently ranked CSS-first solution(s) for your UI task`,
+            message: `Found ${suggestions.length} CSS-ONLY solution(s) using modern CSS features. All solutions are JavaScript-free and use logical properties by default.`,
             suggestions: suggestions.map((suggestion) => ({
               ...suggestion,
               needs_consent: true,
@@ -236,7 +237,7 @@ server.tool(
 
       const result = !user_consent 
         ? {
-            message: `User declined to use ${css_property}. Consider alternative approaches or JavaScript solutions.`,
+            message: `User declined to use ${css_property}. Here are alternative CSS-ONLY solutions (JavaScript solutions are not provided by this tool).`,
             alternative_suggestions: await getAlternativeCSSProperties(css_property),
           }
         : {

@@ -31,16 +31,16 @@ export const CSS_FEATURES: Record<string, CSSFeature> = {
 };
 
 // Export individual feature modules
-export { LOGICAL_SPACING_FEATURES, LOGICAL_SPACING_GUIDANCE, LOGICAL_SPACING_SYNTAX, LOGICAL_SPACING_USE_CASES, extractLogicalSpacingKeywords, getLogicalSpacingGuidance } from './logical-spacing/index.js';
-export { FLEXBOX_FEATURES, FLEXBOX_GUIDANCE, FLEXBOX_SYNTAX, FLEXBOX_USE_CASES, extractFlexboxKeywords, getFlexboxGuidance, GRID_FEATURES, GRID_GUIDANCE, GRID_SYNTAX, GRID_USE_CASES, extractGridKeywords, getGridGuidance } from './layout/index.js';
-export { ANIMATION_FEATURES, ANIMATION_GUIDANCE, ANIMATION_SYNTAX, ANIMATION_USE_CASES, extractAnimationKeywords, getAnimationGuidance } from './animation/index.js';
+export { LOGICAL_SPACING_FEATURES, LOGICAL_SPACING_GUIDANCE, getLogicalSpacingGuidance } from './logical-spacing/index.js';
+export { FLEXBOX_FEATURES, FLEXBOX_GUIDANCE, getFlexboxGuidance, GRID_FEATURES, GRID_GUIDANCE, getGridGuidance } from './layout/index.js';
+export { ANIMATION_FEATURES, ANIMATION_GUIDANCE, getAnimationGuidance } from './animation/index.js';
 export { VISUAL_FEATURES } from './visual/index.js';
 export { RESPONSIVE_FEATURES } from './responsive/index.js';
 export { INTERACTION_FEATURES } from './interaction/index.js';
 export { LOGICAL_FEATURES } from './logical/index.js';
 export { POSITIONING_FEATURES } from './positioning/index.js';
 export { DISPLAY_FEATURES } from './display/index.js';
-export { MODERN_CSS_FEATURES, MODERN_CSS_GUIDANCE, MODERN_CSS_SYNTAX, MODERN_CSS_USE_CASES, extractModernCSSKeywords, getModernCSSGuidance } from './modern/index.js';
+export { MODERN_CSS_FEATURES, MODERN_CSS_GUIDANCE, getModernCSSGuidance } from './modern/index.js';
 
 // Re-export feature functions for backwards compatibility
 export { getFeaturesByCategory, searchFeatures, getCarouselFeatures } from './utils.js';

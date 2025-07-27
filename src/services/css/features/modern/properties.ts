@@ -369,6 +369,248 @@ export const MODERN_CSS_FEATURES: Record<string, CSSFeature> = {
     description: "Masonry-style grid layouts",
     support_level: "experimental",
     mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Masonry_Layout"
+  },
+
+  // Modern CSS Carousel with Pseudo-Elements (2024-2025)
+  css_carousel_pseudo_elements: {
+    name: "CSS Carousel with Modern Pseudo-Elements",
+    category: CSSFeatureCategory.INTERACTION,
+    properties: [
+      "::scroll-marker-group",
+      "::scroll-marker", 
+      "::scroll-button",
+      "scroll-snap-type",
+      "scroll-behavior",
+      "overflow-inline"
+    ],
+    description: "CSS-only carousel with auto-generated navigation using modern pseudo-elements",
+    support_level: "experimental",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap"
+  },
+
+  // Enhanced Light-Dark Theme System (2024)
+  light_dark_enhanced: {
+    name: "Enhanced Light-Dark Theme System",
+    category: CSSFeatureCategory.VISUAL,
+    properties: [
+      "light-dark",
+      "color-scheme", 
+      "@media (prefers-color-scheme)",
+      "system-ui"
+    ],
+    description: "Complete CSS-only theme system using light-dark() function with system preferences",
+    support_level: "good",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark"
+  },
+
+  // Scroll-Driven Carousel Animations (2024)
+  scroll_driven_carousel: {
+    name: "Scroll-Driven Carousel Animations",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "scroll-timeline",
+      "animation-timeline",
+      "scroll-timeline-axis: inline",
+      "view-timeline"
+    ],
+    description: "CSS-only carousel animations driven by scroll position with logical axis support",
+    support_level: "experimental", 
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_driven_Animations"
+  },
+
+  // CSS-Only Form Validation (2021-2024)
+  css_form_validation: {
+    name: "CSS-Only Form Validation",
+    category: CSSFeatureCategory.INTERACTION,
+    properties: [
+      ":valid",
+      ":invalid", 
+      ":user-valid",
+      ":user-invalid",
+      ":required",
+      ":optional",
+      ":in-range",
+      ":out-of-range",
+      ":pattern",
+      "::placeholder"
+    ],
+    description: "Complete form validation using CSS pseudo-classes without JavaScript",
+    support_level: "excellent",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors#user_action_pseudo-classes"
+  },
+
+  // CSS-Only Modal/Dialog (2022-2024)
+  css_modal_dialog: {
+    name: "CSS-Only Modal/Dialog",
+    category: CSSFeatureCategory.INTERACTION,
+    properties: [
+      ":target",
+      ":focus-within", 
+      "dialog",
+      ":popover-open",
+      "anchor-name",
+      "position-anchor",
+      "backdrop-filter"
+    ],
+    description: "Modal dialogs and popovers using CSS-only techniques with modern anchoring",
+    support_level: "good",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog"
+  },
+
+  // CSS-Only Tabs/Accordion (Classic + Modern)
+  css_tabs_accordion: {
+    name: "CSS-Only Tabs/Accordion",
+    category: CSSFeatureCategory.INTERACTION,
+    properties: [
+      ":checked",
+      ":target",
+      "details",
+      "summary", 
+      ":open",
+      "counter-increment",
+      "counter-reset"
+    ],
+    description: "Interactive tabs and accordions using checkbox/radio hack and HTML details",
+    support_level: "excellent",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details"
+  },
+
+  // Modern CSS Selectors (2021-2024)
+  modern_css_selectors: {
+    name: "Modern CSS Selectors",
+    category: CSSFeatureCategory.INTERACTION,
+    properties: [
+      ":is()",
+      ":where()",
+      ":not()",
+      ":has()",
+      ":focus-visible",
+      ":focus-within",
+      ":target-within",
+      ":user-valid",
+      ":user-invalid"
+    ],
+    description: "Advanced CSS selectors for complex interactive patterns",
+    support_level: "good",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors"
+  },
+
+  // CSS-Only Navigation Patterns (2021-2024)
+  css_navigation: {
+    name: "CSS-Only Navigation Patterns",
+    category: CSSFeatureCategory.LAYOUT,
+    properties: [
+      ":target",
+      ":checked",
+      ":focus-within",
+      "position: sticky",
+      "scroll-padding-block",
+      "scroll-margin-block",
+      "overflow-inline"
+    ],
+    description: "Responsive navigation menus, hamburger menus, and sticky headers without JavaScript",
+    support_level: "excellent",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/position"
+  },
+
+  // CSS-Only Loading/Skeleton (2021-2024)
+  css_loading_skeleton: {
+    name: "CSS-Only Loading/Skeleton",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "@keyframes",
+      "animation-timeline",
+      "background-image",
+      "linear-gradient",
+      "animation-play-state",
+      ":empty",
+      "::before",
+      "::after"
+    ],
+    description: "Loading states, skeleton screens, and progress indicators using pure CSS",
+    support_level: "excellent",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations"
+  },
+
+  // Mobile Viewport Heights (2022-2024)
+  mobile_viewport_heights: {
+    name: "Mobile Viewport Heights",
+    category: CSSFeatureCategory.RESPONSIVE,
+    properties: [
+      "height",
+      "min-height",
+      "max-height",
+      "block-size",
+      "min-block-size",
+      "max-block-size",
+      "dvh",
+      "svh", 
+      "lvh",
+      "dvi",
+      "svi",
+      "lvi",
+      "dvb",
+      "svb",
+      "lvb",
+      "100vh",
+      "100dvh"
+    ],
+    description: "Mobile-optimized viewport height units that handle mobile browser UI correctly",
+    support_level: "excellent",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/length#viewport-percentage_lengths"
+  },
+
+  // CSS Positioning (Modern)
+  css_positioning_modern: {
+    name: "Modern CSS Positioning",
+    category: CSSFeatureCategory.POSITIONING,
+    properties: [
+      "position",
+      "sticky",
+      "fixed",
+      "absolute",
+      "relative",
+      "static",
+      "inset",
+      "inset-block",
+      "inset-inline",
+      "inset-block-start",
+      "inset-block-end",
+      "inset-inline-start", 
+      "inset-inline-end",
+      "top",
+      "bottom",
+      "left",
+      "right"
+    ],
+    description: "Modern positioning with logical properties and sticky positioning",
+    support_level: "excellent",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/position"
+  },
+
+  // CSS Sizing Properties
+  css_sizing: {
+    name: "CSS Sizing Properties",
+    category: CSSFeatureCategory.LAYOUT,
+    properties: [
+      "width",
+      "height", 
+      "min-width",
+      "min-height",
+      "max-width",
+      "max-height",
+      "inline-size",
+      "block-size",
+      "min-inline-size",
+      "min-block-size",
+      "max-inline-size",
+      "max-block-size",
+      "box-sizing",
+      "aspect-ratio"
+    ],
+    description: "Modern sizing properties with logical equivalents for international layouts",
+    support_level: "excellent",
+    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model"
   }
 };
 
@@ -424,5 +666,34 @@ export const MODERN_CSS_KEYWORDS = [
   'anchor', 'position-anchor',
   
   // Transitions
-  'view-transition', 'page-transition'
+  'view-transition', 'page-transition',
+  
+  // Modern Carousel Features
+  'scroll-marker', 'scroll-button', 'carousel-pseudo', 'css-carousel',
+  'scroll-driven-animation', 'timeline-axis',
+  
+  // Enhanced Theming
+  'light-dark-function', 'system-ui', 'theme-css-only',
+  
+  // CSS-Only Interactive Patterns
+  'form-validation', 'css-validation', 'user-valid', 'user-invalid',
+  'modal-css', 'dialog-css', 'popover-css', 'target-pseudo',
+  'tabs-css', 'accordion-css', 'details-summary', 'checkbox-hack',
+  'navigation-css', 'hamburger-css', 'sticky-header',
+  'loading-css', 'skeleton-css', 'progress-css',
+  
+  // Modern Selectors
+  'is-where-selectors', 'has-selector', 'focus-visible', 'focus-within',
+  
+  // Mobile Viewport Heights
+  'mobile-height', 'viewport-height', 'full-height', 'dvh', 'svh', 'lvh',
+  'mobile-viewport', 'browser-ui', 'dynamic-viewport',
+  
+  // Positioning
+  'sticky', 'fixed', 'absolute', 'relative', 'position', 'inset',
+  'positioning', 'header-fixed', 'header-sticky',
+  
+  // Sizing
+  'height', 'width', 'block-size', 'inline-size', 'sizing', 'dimensions',
+  'min-height', 'max-height', 'aspect-ratio', 'box-sizing'
 ];
