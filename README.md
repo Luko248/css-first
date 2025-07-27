@@ -2,19 +2,21 @@
 
 An advanced MCP (Model Context Protocol) server that provides intelligent, context-aware CSS-first solutions for UI implementation tasks. Features semantic analysis, framework detection, and intelligent ranking with hybrid MDN integration including context7 support.
 
-## 🔥 **Latest Version: 1.1.0** 
+## 🔥 **Latest Version: 1.1.0**
 
 🚀 **Major Improvements**: Version 1.1.0 brings dramatically enhanced CSS suggestion capabilities with intelligent semantic understanding.
 
 ### **What's New in 1.1.0:**
+
 - 🧠 **Dramatically Improved Search**: Semantic understanding of developer intent
 - 📱 **Mobile-First CSS**: Proper `dvh`/`svh` viewport units for mobile headers
-- 🎠 **Modern Carousels**: CSS-only solutions with `::scroll-marker` pseudo-elements  
+- 🎠 **Modern Carousels**: CSS-only solutions with `::scroll-marker` pseudo-elements
 - 🌙 **Advanced Theming**: `light-dark()` function support for CSS-only themes
 - ✅ **Form Validation**: `:user-valid`/`:user-invalid` for CSS-only validation
 - 🚀 **10x Better Results**: Now suggests actually useful CSS properties for real use cases
 
 ### **Upgrade from 1.0.0:**
+
 ```bash
 # Update to latest version
 npm update @depthark/css-first
@@ -30,6 +32,7 @@ npm install @depthark/css-first@1.1.0
 Add to your MCP configuration file:
 
 **Claude Desktop (`claude_desktop_config.json`):**
+
 ```json
 {
   "mcpServers": {
@@ -42,6 +45,7 @@ Add to your MCP configuration file:
 ```
 
 **Alternative (if you have the package installed globally):**
+
 ```json
 {
   "mcpServers": {
@@ -53,6 +57,7 @@ Add to your MCP configuration file:
 ```
 
 ### **Manual Installation**
+
 ```bash
 # Install globally
 npm install -g @depthark/css-first
@@ -78,7 +83,7 @@ After installation, ask Claude:
 "Create a header that's always full height on mobile devices"
 → Suggests: height: 100dvh, position: sticky, @media queries
 
-"Make a modern CSS carousel with navigation dots"  
+"Make a modern CSS carousel with navigation dots"
 → Suggests: ::scroll-marker, scroll-snap-type, overflow-inline
 
 "Add light and dark theme support"
@@ -88,28 +93,33 @@ After installation, ask Claude:
 ## 🚀 Key Features
 
 ### **Intelligent Analysis**
+
 - **Semantic Intent Recognition**: Understands user intent through advanced pattern matching (layout, animation, spacing, etc.)
 - **Confidence Scoring**: Provides transparency with confidence levels for suggestions
 - **Context-Aware Keywords**: Enhanced keyword extraction with semantic understanding
 
 ### **Project Context Awareness**
+
 - **Framework Detection**: Automatically detects React, Vue, Angular, Svelte projects
 - **CSS Framework Recognition**: Supports Tailwind, Bootstrap, Material-UI, Chakra UI
 - **Build Tool Integration**: Recognizes Webpack, Vite, Parcel, Rollup environments
 - **Constraint Analysis**: Understands project constraints (performance, accessibility, responsive)
 
 ### **Enhanced MDN Integration**
+
 - **Hybrid Data Sources**: Primary context7 integration with MDN fallback
 - **Performance Caching**: 1-hour intelligent caching for improved response times
 - **Real-time Browser Support**: Accurate compatibility data from MDN
 - **Graceful Degradation**: Fallback mechanisms ensure reliability
 
 ### **Intelligent Ranking**
+
 - **Relevance Scoring**: Suggestions ranked by intent match, browser support, and framework compatibility
 - **Category-Prioritized Search**: Focuses on most relevant CSS feature categories
 - **Framework-Specific Recommendations**: Tailored advice for your tech stack
 
 ### **User Experience**
+
 - **Consent-Driven Workflow**: User approval required before property recommendations
 - **Detailed Analysis**: Optional semantic analysis breakdown for transparency
 - **Implementation Guidance**: Framework-specific best practices and code examples
@@ -128,7 +138,7 @@ Add to your MCP settings:
 ```json
 {
   "mcpServers": {
-    "mcp-css-first": {
+    "@depthark/css-first": {
       "command": "node",
       "args": ["dist/cli.js"]
     }
@@ -153,6 +163,7 @@ Enhanced CSS-first solution suggester with semantic analysis, context awareness,
 **Examples:**
 
 **Basic Usage:**
+
 ```json
 {
   "task_description": "I need to center a div horizontally and vertically",
@@ -161,6 +172,7 @@ Enhanced CSS-first solution suggester with semantic analysis, context awareness,
 ```
 
 **With Project Context:**
+
 ```json
 {
   "task_description": "Create a responsive card layout with hover animations",
@@ -171,8 +183,9 @@ Enhanced CSS-first solution suggester with semantic analysis, context awareness,
 ```
 
 **Response includes:**
+
 - Intelligently ranked CSS suggestions
-- Framework-specific recommendations  
+- Framework-specific recommendations
 - Semantic analysis breakdown (optional)
 - Confidence scoring and intent detection
 
@@ -240,12 +253,14 @@ Confirms user consent for using a specific CSS property and provides implementat
 
 2. **Project Context Analysis**: Detects frameworks, CSS libraries, build tools, and constraints from project context string
 
-3. **Hybrid MDN Integration**: 
+3. **Hybrid MDN Integration**:
+
    - Primary: Context7 tool for structured MDN data
    - Fallback: Direct MDN API scraping
    - Caching: 1-hour intelligent cache for performance
 
 4. **Intelligent Ranking**: Scores suggestions based on:
+
    - Intent match relevance
    - Browser support level
    - Framework compatibility
@@ -334,6 +349,7 @@ src/
 ## 🎯 CSS Feature Coverage
 
 ### **Intelligent Categories**
+
 The enhanced system provides context-aware suggestions across:
 
 - **Layout** 🏗️: Flexbox, Grid, positioning, display modes
@@ -346,12 +362,14 @@ The enhanced system provides context-aware suggestions across:
 - **Positioning** 📍: Static, relative, absolute, fixed, sticky
 
 ### **Framework-Specific Features**
+
 - **React**: Component-scoped styling, CSS-in-JS patterns
 - **Vue**: Scoped styles, transition components
 - **Angular**: ViewEncapsulation, Material Design integration
 - **Svelte**: Built-in scoped styling, reactive CSS
 
 ### **CSS Framework Integration**
+
 - **Tailwind**: Utility-first patterns, responsive prefixes
 - **Bootstrap**: Grid system, utility classes
 - **Material-UI**: Theme customization, sx props
@@ -360,7 +378,7 @@ The enhanced system provides context-aware suggestions across:
 ## 📊 Enhanced Browser Support Levels
 
 - **Excellent** (95%+): ✅ Safe for production use
-- **Good** (85%+): ⚠️ Consider fallbacks for legacy browsers  
+- **Good** (85%+): ⚠️ Consider fallbacks for legacy browsers
 - **Moderate** (70%+): ⚡ Use with caution and provide fallbacks
 - **Limited** (<70%): 🔄 Consider alternative approaches
 - **Experimental** (varies): 🧪 Cutting-edge features with progressive enhancement
@@ -370,12 +388,14 @@ The enhanced system provides context-aware suggestions across:
 This MCP features **automated CSS feature discovery** using context7 MCP for MDN documentation. The system continuously discovers and integrates recent CSS features (2021-2025) with intelligent categorization.
 
 ### **Context7 Benefits**
+
 - **Faster Response Times**: Pre-processed MDN data with intelligent caching
 - **Structured Information**: Better parsing of CSS property details and browser support
 - **Reduced API Calls**: Less reliance on direct MDN scraping
 - **Enhanced Reliability**: Multi-layered fallback mechanisms ensure service continuity
 
 ### **Automated Feature Discovery**
+
 - **🤖 Auto-Discovery**: Automatically finds and categorizes new CSS features from MDN
 - **📊 Intelligent Categorization**: Uses semantic analysis to categorize features by type
 - **🔄 Continuous Updates**: Built-in mechanisms for ongoing feature maintenance
@@ -384,6 +404,7 @@ This MCP features **automated CSS feature discovery** using context7 MCP for MDN
 ### **Recently Integrated Features (2021-2025)**
 
 #### **🆕 Major CSS Features Added**
+
 - **Container Queries** (2022): Element-based responsive design with logical units (`cqi`, `cqb`) and style/scroll queries
 - **CSS Nesting** (2023): Native CSS nesting without preprocessors
 - **:has() Pseudo-class** (2022): Parent selection based on children
@@ -396,6 +417,7 @@ This MCP features **automated CSS feature discovery** using context7 MCP for MDN
 - **Enhanced Math Functions** (2021-2023): clamp(), round(), trigonometric functions
 
 #### **📱 Responsive & Modern Layout**
+
 - **CSS Anchor Positioning** (2024): Position elements relative to other elements
 - **View Transitions** (2023-2024): Smooth page/view transitions
 - **Enhanced Logical Properties**: Complete writing-mode aware spacing, sizing, and positioning
@@ -404,6 +426,7 @@ This MCP features **automated CSS feature discovery** using context7 MCP for MDN
 - **Masonry Layout** (Experimental): Pinterest-style layouts
 
 #### **🎨 Visual & Color Enhancements**
+
 - **accent-color**: Customize form control colors
 - **color-scheme**: Light/dark mode indication
 - **light-dark() Function**: Theme-aware color values
@@ -421,6 +444,7 @@ npm run discover-features
 ```
 
 ### **Context7 Setup**
+
 The MCP automatically detects and uses context7 when available:
 
 1. **Automatic Detection**: Checks for context7 MCP in the environment
@@ -436,14 +460,17 @@ This MCP implements a **logical-first approach** to CSS suggestions, prioritizin
 ### **Logical Units Priority System**
 
 #### **Viewport Units (Logical Preferred)**
+
 - `dvi`, `dvb` (dynamic viewport inline/block) → `dvw`, `dvh` (physical fallback)
-- `svi`, `svb` (small viewport inline/block) → `svw`, `svh` (physical fallback)  
+- `svi`, `svb` (small viewport inline/block) → `svw`, `svh` (physical fallback)
 - `lvi`, `lvb` (large viewport inline/block) → `lvw`, `lvh` (physical fallback)
 
 #### **Container Query Units (Logical Preferred)**
+
 - `cqi`, `cqb` (container query inline/block) → `cqw`, `cqh` (physical fallback)
 
 #### **CSS Properties (Logical Preferred)**
+
 - `inline-size`, `block-size` → `width`, `height` (physical fallback)
 - `margin-inline`, `margin-block` → `margin-left/right`, `margin-top/bottom`
 - `padding-inline`, `padding-block` → `padding-left/right`, `padding-top/bottom`
@@ -453,27 +480,37 @@ This MCP implements a **logical-first approach** to CSS suggestions, prioritizin
 ### **Advanced Container Queries**
 
 #### **Size-based Container Queries (Enhanced)**
+
 ```css
 @container (inline-size > 30cqi) {
-  .component { gap: 2cqi; }
+  .component {
+    gap: 2cqi;
+  }
 }
 ```
 
 #### **Style Queries (NEW)**
+
 ```css
 @container style(--theme: dark) {
-  .card { background: var(--dark-bg); }
+  .card {
+    background: var(--dark-bg);
+  }
 }
 ```
 
 #### **Scroll State Queries (NEW)**
+
 ```css
 @container scroll-state(stuck: top) {
-  .header { backdrop-filter: blur(10px); }
+  .header {
+    backdrop-filter: blur(10px);
+  }
 }
 ```
 
 ### **Writing-Mode Awareness**
+
 - **RTL Language Support**: Logical properties automatically adapt to right-to-left languages
 - **Vertical Writing Modes**: Properties work correctly with `writing-mode: vertical-rl`
 - **International Compatibility**: Suggestions prioritize globally compatible approaches
