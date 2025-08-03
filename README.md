@@ -25,13 +25,15 @@ npm update @depthark/css-first
 npm install @depthark/css-first@1.1.0
 ```
 
-## 🚀 Installation
+## Setup
 
-### **For MCP Clients (Claude Desktop, etc.)**
+Add to your MCP configuration:
 
-Add to your MCP configuration file:
+### Claude Desktop
 
-**Claude Desktop (`claude_desktop_config.json`):**
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`  
+**Linux**: `~/.config/claude/claude_desktop_config.json`
 
 ```json
 {
@@ -44,51 +46,77 @@ Add to your MCP configuration file:
 }
 ```
 
-**Alternative (if you have the package installed globally):**
+### Cursor
+
+Add to your MCP settings:
 
 ```json
 {
   "mcpServers": {
     "css-first": {
-      "command": "css-first"
+      "command": "npx",
+      "args": ["-y", "@depthark/css-first"]
     }
   }
 }
 ```
 
-### **Manual Installation**
+### Windsurf
 
+Configure in your MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "css-first": {
+      "command": "npx",
+      "args": ["-y", "@depthark/css-first"]
+    }
+  }
+}
+```
+
+### GitHub Copilot / VS Code
+
+Add to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "css-first": {
+      "command": "npx",
+      "args": ["-y", "@depthark/css-first"]
+    }
+  }
+}
+```
+
+### Claude Code CLI
+
+Claude Code CLI requires HTTP transport. Follow these steps:
+
+**Step 1:** Start the HTTP server
 ```bash
-# Install globally
-npm install -g @depthark/css-first
-
-# Run directly
-css-first
-
-# Or use with npx (recommended)
-npx @depthark/css-first
+npx @depthark/css-first --port 3000
 ```
 
-### **Configuration Locations**
-
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-- **Linux**: `~/.config/claude/claude_desktop_config.json`
-
-## ⚡ Quick Start
-
-After installation, ask Claude:
-
+**Step 2:** Add the MCP server
+```bash
+claude mcp add --transport http css-first http://localhost:3000/mcp
 ```
-"Create a header that's always full height on mobile devices"
-→ Suggests: height: 100dvh, position: sticky, @media queries
 
-"Make a modern CSS carousel with navigation dots"
-→ Suggests: ::scroll-marker, scroll-snap-type, overflow-inline
+**Step 3:** Keep the HTTP server running while using Claude Code CLI
 
-"Add light and dark theme support"
-→ Suggests: light-dark(), color-scheme, prefers-color-scheme
-```
+## Usage
+
+After adding the configuration:
+
+1. Restart your MCP client
+2. Ask CSS questions like:
+   - "Create a responsive card layout"
+   - "Center a div vertically and horizontally" 
+   - "Add dark mode support"
+   - "Make a sticky header"
 
 ## 🚀 Key Features
 
@@ -124,23 +152,27 @@ After installation, ask Claude:
 - **Detailed Analysis**: Optional semantic analysis breakdown for transparency
 - **Implementation Guidance**: Framework-specific best practices and code examples
 
-## Installation
+## Development Installation
+
+For contributors and advanced users who want to modify the source:
 
 ```bash
+git clone https://github.com/luko248/css-first
+cd css-first
 pnpm install
 pnpm run build
 ```
 
-## Usage
+## Development Usage
 
-Add to your MCP settings:
+For development/testing with local builds:
 
 ```json
 {
   "mcpServers": {
     "@depthark/css-first": {
       "command": "node",
-      "args": ["dist/cli.js"]
+      "args": ["/absolute/path/to/css-first/dist/cli.js"]
     }
   }
 }
