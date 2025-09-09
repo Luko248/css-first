@@ -2,7 +2,7 @@
  * Visual Properties - CSS visual styling features
  */
 
-import { CSSFeature, CSSFeatureCategory } from '../../types.js';
+import { CSSFeature, CSSFeatureCategory } from "../../types.js";
 
 export const VISUAL_FEATURES: Record<string, CSSFeature> = {
   gradients: {
@@ -18,7 +18,8 @@ export const VISUAL_FEATURES: Record<string, CSSFeature> = {
     ],
     description: "Smooth color transitions and gradient backgrounds",
     support_level: "excellent",
-    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients",
+    mdn_url:
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients",
   },
   transforms: {
     name: "CSS Transforms",
@@ -58,7 +59,8 @@ export const VISUAL_FEATURES: Record<string, CSSFeature> = {
     ],
     description: "Logical border properties that adapt to writing direction",
     support_level: "good",
-    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties",
+    mdn_url:
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties",
   },
   overflow: {
     name: "CSS Overflow",
@@ -80,12 +82,11 @@ export const VISUAL_FEATURES: Record<string, CSSFeature> = {
   "overflow-clip": {
     name: "CSS Overflow Clip",
     category: CSSFeatureCategory.LAYOUT,
-    properties: [
-      "overflow-clip-margin",
-    ],
+    properties: ["overflow-clip-margin"],
     description: "Control clipping area for overflow: clip",
     support_level: "limited",
-    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-clip-margin",
+    mdn_url:
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-clip-margin",
   },
   "overscroll-behavior": {
     name: "CSS Overscroll Behavior",
@@ -99,34 +100,51 @@ export const VISUAL_FEATURES: Record<string, CSSFeature> = {
     ],
     description: "Control scrolling behavior when reaching scroll boundaries",
     support_level: "good",
-    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
+    mdn_url:
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
+  },
+  "corner-shape": {
+    name: "CSS Corner Shape",
+    category: CSSFeatureCategory.VISUAL,
+    properties: ["corner-shape"],
+    description:
+      "Define the shape of element corners using superellipse curves for more organic, rounded designs beyond traditional border-radius",
+    support_level: "experimental",
+    mdn_url: "https://drafts.csswg.org/css-borders-4/#corner-shape",
   },
 };
 
 export const VISUAL_KEYWORDS = [
-  'gradient',
-  'linear-gradient',
-  'radial-gradient',
-  'conic-gradient',
-  'background',
-  'color',
-  'transform',
-  'scale',
-  'rotate',
-  'translate',
-  'skew',
-  'perspective',
-  '3d',
-  'border',
-  'outline',
-  'overflow',
-  'overflow-clip',
-  'overscroll',
-  'clip',
-  'clip-margin',
-  'scroll',
-  'behavior',
-  'shadow',
-  'visual',
-  'styling'
+  "gradient",
+  "linear-gradient",
+  "radial-gradient",
+  "conic-gradient",
+  "background",
+  "color",
+  "transform",
+  "scale",
+  "rotate",
+  "translate",
+  "skew",
+  "perspective",
+  "3d",
+  "border",
+  "outline",
+  "overflow",
+  "overflow-clip",
+  "overscroll",
+  "clip",
+  "clip-margin",
+  "scroll",
+  "behavior",
+  "shadow",
+  "visual",
+  "styling",
+  "corner",
+  "corner-shape",
+  "superellipse",
+  "rounded",
+  "organic",
+  "smooth",
+  "curves",
 ];
