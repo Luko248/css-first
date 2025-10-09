@@ -2,9 +2,15 @@
 
 An advanced MCP (Model Context Protocol) server that provides intelligent, context-aware CSS-first solutions for UI implementation tasks. Features semantic analysis, framework detection, and intelligent ranking with hybrid MDN integration including context7 support.
 
-## 🔥 **Latest Version: 1.1.0**
+## 🔥 **Latest Version: 1.2.1**
 
-🚀 **Major Improvements**: Version 1.1.0 brings dramatically enhanced CSS suggestion capabilities with intelligent semantic understanding.
+🚀 **Major Improvements**: Version 1.2.1 brings enhanced CSS features including experimental corner-shape property support.
+
+### **What's New in 1.2.1:**
+
+- 🎨 **Corner Shape Property**: Added experimental CSS corner-shape property with superellipse curves
+- 🔧 **Enhanced Static Content**: Comprehensive documentation for cutting-edge CSS features
+- 📚 **Improved MDN Integration**: Better fallback mechanisms and static content for experimental features
 
 ### **What's New in 1.1.0:**
 
@@ -15,14 +21,14 @@ An advanced MCP (Model Context Protocol) server that provides intelligent, conte
 - ✅ **Form Validation**: `:user-valid`/`:user-invalid` for CSS-only validation
 - 🚀 **10x Better Results**: Now suggests actually useful CSS properties for real use cases
 
-### **Upgrade from 1.0.0:**
+### **Upgrade from Previous Versions:**
 
 ```bash
 # Update to latest version
 npm update @depthark/css-first
 
 # Or install specific version
-npm install @depthark/css-first@1.1.0
+npm install @depthark/css-first@1.2.1
 ```
 
 ## Setup
@@ -40,7 +46,10 @@ Add to your MCP configuration:
   "mcpServers": {
     "css-first": {
       "command": "npx",
-      "args": ["-y", "@depthark/css-first"]
+      "args": [
+        "-y",
+        "@depthark/css-first"
+      ]
     }
   }
 }
@@ -55,7 +64,10 @@ Add to your MCP settings:
   "mcpServers": {
     "css-first": {
       "command": "npx",
-      "args": ["-y", "@depthark/css-first"]
+      "args": [
+        "-y",
+        "@depthark/css-first"
+      ]
     }
   }
 }
@@ -70,7 +82,10 @@ Configure in your MCP settings:
   "mcpServers": {
     "css-first": {
       "command": "npx",
-      "args": ["-y", "@depthark/css-first"]
+      "args": [
+        "-y",
+        "@depthark/css-first"
+      ]
     }
   }
 }
@@ -85,7 +100,10 @@ Add to your MCP configuration:
   "mcpServers": {
     "css-first": {
       "command": "npx",
-      "args": ["-y", "@depthark/css-first"]
+      "args": [
+        "-y",
+        "@depthark/css-first"
+      ]
     }
   }
 }
@@ -93,19 +111,45 @@ Add to your MCP configuration:
 
 ### Claude Code CLI
 
-Claude Code CLI requires HTTP transport. Follow these steps:
+Add the MCP server:
+
+```bash
+claude mcp add css-first npx -y @depthark/css-first
+```
+
+**Alternative (HTTP transport):**
+
+If you prefer HTTP transport, follow these steps:
 
 **Step 1:** Start the HTTP server
+
 ```bash
 npx @depthark/css-first --port 3000
 ```
 
 **Step 2:** Add the MCP server
+
 ```bash
 claude mcp add --transport http css-first http://localhost:3000/mcp
 ```
 
 **Step 3:** Keep the HTTP server running while using Claude Code CLI
+
+### Codex
+
+Configure using `mcp config`:
+
+```bash
+mcp config
+```
+
+Then add to your `mcp_servers.toml`:
+
+```toml
+[mcp_servers.css-first]
+command = "npx"
+args = ["-y", "@depthark/css-first"]
+```
 
 ## Usage
 
@@ -114,9 +158,11 @@ After adding the configuration:
 1. Restart your MCP client
 2. Ask CSS questions like:
    - "Create a responsive card layout"
-   - "Center a div vertically and horizontally" 
+   - "Center a div vertically and horizontally"
    - "Add dark mode support"
    - "Make a sticky header"
+   - "Create organic rounded corners with corner-shape"
+   - "Design modern buttons with superellipse curves"
 
 ## 🚀 Key Features
 
@@ -464,6 +510,7 @@ This MCP features **automated CSS feature discovery** using context7 MCP for MDN
 - **light-dark() Function**: Theme-aware color values
 - **backdrop-filter**: Glass morphism effects
 - **conic-gradient**: Conical gradients for complex designs
+- **corner-shape** (Experimental): Superellipse curves for organic, Apple-like rounded corners
 
 ### **Automated Update Commands**
 
