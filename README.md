@@ -1,59 +1,10 @@
-# MCP CSS First
+# CSS First
 
 An advanced MCP (Model Context Protocol) server that provides intelligent, context-aware CSS-first solutions for UI implementation tasks. Features semantic analysis, framework detection, and intelligent ranking with hybrid MDN integration including context7 support.
-
-## 🔥 **Latest Version: 1.2.1**
-
-🚀 **Major Improvements**: Version 1.2.1 brings enhanced CSS features including experimental corner-shape property support.
-
-### **What's New in 1.2.1:**
-
-- 🎨 **Corner Shape Property**: Added experimental CSS corner-shape property with superellipse curves
-- 🔧 **Enhanced Static Content**: Comprehensive documentation for cutting-edge CSS features
-- 📚 **Improved MDN Integration**: Better fallback mechanisms and static content for experimental features
-
-### **What's New in 1.1.0:**
-
-- 🧠 **Dramatically Improved Search**: Semantic understanding of developer intent
-- 📱 **Mobile-First CSS**: Proper `dvh`/`svh` viewport units for mobile headers
-- 🎠 **Modern Carousels**: CSS-only solutions with `::scroll-marker` pseudo-elements
-- 🌙 **Advanced Theming**: `light-dark()` function support for CSS-only themes
-- ✅ **Form Validation**: `:user-valid`/`:user-invalid` for CSS-only validation
-- 🚀 **10x Better Results**: Now suggests actually useful CSS properties for real use cases
-
-### **Upgrade from Previous Versions:**
-
-```bash
-# Update to latest version
-npm update @depthark/css-first
-
-# Or install specific version
-npm install @depthark/css-first@1.2.1
-```
 
 ## Setup
 
 Add to your MCP configuration:
-
-### Claude Desktop
-
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`  
-**Linux**: `~/.config/claude/claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "css-first": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@depthark/css-first"
-      ]
-    }
-  }
-}
-```
 
 ### Cursor
 
@@ -64,10 +15,7 @@ Add to your MCP settings:
   "mcpServers": {
     "css-first": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@depthark/css-first"
-      ]
+      "args": ["-y", "@depthark/css-first"]
     }
   }
 }
@@ -82,10 +30,7 @@ Configure in your MCP settings:
   "mcpServers": {
     "css-first": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@depthark/css-first"
-      ]
+      "args": ["-y", "@depthark/css-first"]
     }
   }
 }
@@ -100,10 +45,7 @@ Add to your MCP configuration:
   "mcpServers": {
     "css-first": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@depthark/css-first"
-      ]
+      "args": ["-y", "@depthark/css-first"]
     }
   }
 }
@@ -117,33 +59,9 @@ Add the MCP server:
 claude mcp add css-first npx -y @depthark/css-first
 ```
 
-**Alternative (HTTP transport):**
-
-If you prefer HTTP transport, follow these steps:
-
-**Step 1:** Start the HTTP server
-
-```bash
-npx @depthark/css-first --port 3000
-```
-
-**Step 2:** Add the MCP server
-
-```bash
-claude mcp add --transport http css-first http://localhost:3000/mcp
-```
-
-**Step 3:** Keep the HTTP server running while using Claude Code CLI
-
 ### Codex
 
-Configure using `mcp config`:
-
-```bash
-mcp config
-```
-
-Then add to your `mcp_servers.toml`:
+Add config to your `mcp_servers.toml`:
 
 ```toml
 [mcp_servers.css-first]
