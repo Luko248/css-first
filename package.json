@@ -1,32 +1,66 @@
 {
-  "name": "mcp-css-first",
-  "description": "MCP server for CSS-first development with MDN integration",
+  "name": "@depthark/css-first",
+  "description": "Advanced MCP server for intelligent, context-aware CSS suggestions with logical units, container queries, and automated feature discovery",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "1.3.2",
+  "bugs": {
+    "url": "https://github.com/luko248/css-first/issues"
+  },
+  "homepage": "https://github.com/luko248/css-first#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luko248/css-first.git"
+  },
   "keywords": [
+    "css",
     "modelcontextprotocol",
     "mcp",
-    "css",
     "mdn",
-    "web-development"
+    "web-development",
+    "css-suggestions",
+    "container-queries",
+    "logical-units",
+    "internationalization",
+    "responsive-design",
+    "css-automation",
+    "context7",
+    "semantic-analysis",
+    "writing-mode",
+    "rtl-support",
+    "dynamic-viewport",
+    "modern-css",
+    "ai-css-assistant"
   ],
   "bin": {
-    "mcp-css-first": "dist/cli.js"
+    "css-first": "dist/cli.js"
   },
   "files": [
     "dist/cli.js",
-    "src"
+    "src",
+    "README.md",
+    "LICENSE"
   ],
+  "main": "dist/cli.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "ncc build src/index.ts --minify --out dist/ && echo '#!/usr/bin/env node' | cat - dist/index.js > dist/cli.js && chmod +x dist/cli.js",
     "dev": "tsc --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "start": "node dist/cli.js"
+    "start": "node dist/cli.js",
+    "update-features": "tsx src/scripts/updateFeatures.ts",
+    "discover-features": "tsx src/services/css/featureDiscovery.ts",
+    "prepublishOnly": "npm run typecheck && npm run build",
+    "version": "npm run build && git add dist/",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "~1.13",
+    "@types/express": "^5.0.3",
+    "express": "^5.1.0",
     "zod": "~3.25"
   },
   "devDependencies": {
@@ -36,6 +70,5 @@
     "eslint": "~9.29",
     "typescript": "~5.8",
     "typescript-eslint": "~8.35"
-  },
-  "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
+  }
 }
