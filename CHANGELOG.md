@@ -2,6 +2,102 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.2] - 2025-10-20
+
+### 🎬 CSS View Transitions Support
+
+#### **Complete View Transitions API Integration**
+
+- **NEW**: Added comprehensive CSS View Transitions API support
+- **NEW**: `view-transition-name` property for tagging transition elements
+- **NEW**: `::view-transition` root pseudo-element styling
+- **NEW**: `::view-transition-group()` for position/size morphing animations
+- **NEW**: `::view-transition-old()` & `::view-transition-new()` snapshot pseudo-elements
+- **NEW**: `::view-transition-image-pair()` for isolation control
+
+#### **Scoped View Transitions (Chrome 140+)**
+
+- **NEW**: Element-scoped transitions with `contain: layout`
+- **NEW**: Multiple concurrent transitions on different subtrees
+- **NEW**: Localized pointer event blocking for better performance
+- **ADDED**: Implementation guidance for subtree-level animations
+
+#### **Production-Ready Examples**
+
+- **NEW**: Card expansion with morph effects
+- **NEW**: Image gallery smooth transitions
+- **NEW**: Modal/dialog entry animations
+- **NEW**: Navigation state changes
+- **NEW**: Entry animations with `@starting-style`
+- **NEW**: Wildcard selectors for universal transitions
+
+#### **Accessibility & Progressive Enhancement**
+
+- **ADDED**: `prefers-reduced-motion` support for all view transition examples
+- **ADDED**: Progressive enhancement with `@supports` feature detection
+- **ADDED**: Custom timing and easing functions
+- **ADDED**: Z-index layering control for complex transitions
+
+### 🔧 Technical Improvements
+
+- **ENHANCED**: Semantic scoring algorithm with +200 points for view transitions
+- **ADDED**: Keywords: `view-transition`, `morph`, `crossfade`, `scoped`, `state-change`, `snapshot`
+- **IMPROVED**: Pattern recognition for "page transition" and "state change" queries
+- **ADDED**: Browser support data (Chrome 111+, Edge 111+ for document-scoped; Chrome 140+ for scoped)
+
+### 📚 Documentation Updates
+
+- **ADDED**: CSS View Transitions section in README with comprehensive feature list
+- **ADDED**: Modern CSS Carousel section in README highlighting `::scroll-marker` and `::scroll-button` pseudo-elements
+- **ADDED**: Links to MDN documentation, W3C specification, and Chrome blog resources
+- **ADDED**: Link to CSS Carousel Deep Dive article for comprehensive carousel implementation guide
+- **ADDED**: Example prompts: "Add view transitions to my page", "Create smooth state transitions", "Create a CSS-only carousel"
+- **ENHANCED**: Feature showcase highlighting scoped transitions capability
+- **IMPROVED**: README structure with prominent modern CSS features at the top
+
+### 🌐 Browser Support
+
+- **Document-scoped transitions**: Chrome 111+, Edge 111+ (35% global support)
+- **Scoped transitions**: Chrome 140+ (experimental flag required)
+- **Status**: Firefox and Safari support pending
+
+---
+
+## [1.3.1] - 2025-10-20
+
+### 📚 Documentation Simplification
+
+#### **README Streamlining**
+
+- **SIMPLIFIED**: Removed version-specific update notices from README
+- **CLEANED**: Removed redundant "Latest Version" and "What's New" sections
+- **IMPROVED**: Streamlined setup instructions for better clarity
+- **REMOVED**: Alternative HTTP transport instructions (moved to dedicated docs if needed)
+- **ENHANCED**: More concise and focused documentation structure
+
+#### **Configuration Updates**
+
+- **SIMPLIFIED**: Claude Code CLI setup instructions
+- **IMPROVED**: Codex configuration section clarity
+- **STANDARDIZED**: JSON formatting across all setup examples
+
+### 🔧 Technical Improvements
+
+- **UPDATED**: `.gitignore` to use `.env` instead of `.env.local`
+- **CLEANED**: Project documentation structure
+
+---
+
+## [1.3.0] - 2025-09-09
+
+### 📦 Version Bump
+
+- **UPDATED**: Minor version increment for internal improvements
+- **MAINTAINED**: All existing features and functionality
+- **PREPARED**: Foundation for upcoming features
+
+---
+
 ## [1.2.1] - 2025-01-09
 
 ### 🎨 New CSS Features

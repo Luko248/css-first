@@ -124,6 +124,23 @@ export const ANIMATION_FEATURES: Record<string, CSSFeature> = {
     support_level: "experimental",
     mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/timeline-scope",
   },
+  view_transitions: {
+    name: "CSS View Transitions",
+    category: CSSFeatureCategory.ANIMATION,
+    properties: [
+      "view-transition-name",
+      "::view-transition",
+      "::view-transition-group()",
+      "::view-transition-image-pair()",
+      "::view-transition-old()",
+      "::view-transition-new()",
+    ],
+    description:
+      "Smooth animated transitions between DOM states with automatic snapshots. Includes scoped view transitions (Chrome 140+) for subtree-level animations. No JavaScript required for styling!",
+    support_level: "limited",
+    mdn_url:
+      "https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition",
+  },
 };
 
 export const ANIMATION_KEYWORDS = [
@@ -164,5 +181,14 @@ export const ANIMATION_KEYWORDS = [
   'range',
   'inset',
   'scroll-driven',
-  'view-driven'
+  'view-driven',
+  'view-transition',
+  'view-transition-name',
+  'page-transition',
+  'morph',
+  'crossfade',
+  'snapshot',
+  'scoped',
+  'state-change',
+  'dom-update'
 ];

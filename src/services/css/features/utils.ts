@@ -128,11 +128,15 @@ function getSemanticScore(keywords: string[], feature: CSSFeature): number {
     }
   }
   
-  // Carousel patterns
+  // Carousel patterns - prioritize modern CSS-only carousel
   if (keywordText.includes('carousel') || keywordText.includes('slider')) {
-    if (feature.name.includes('Carousel') || 
-        feature.properties.includes('scroll-snap-type') ||
-        feature.properties.includes('::scroll-marker')) {
+    if (feature.name.includes('Modern CSS Carousel') || 
+        feature.properties.includes('::scroll-marker') ||
+        feature.properties.includes('::scroll-button()') ||
+        feature.properties.includes(':target-current')) {
+      score += 200; // Higher priority for modern carousel
+    } else if (feature.name.includes('Carousel') || 
+               feature.properties.includes('scroll-snap-type')) {
       score += 150;
     }
   }
@@ -143,6 +147,21 @@ function getSemanticScore(keywords: string[], feature: CSSFeature): number {
         feature.properties.includes('light-dark') ||
         feature.properties.includes('color-scheme')) {
       score += 150;
+    }
+  }
+  
+  // View Transitions patterns
+  if (keywordText.includes('view transition') || 
+      keywordText.includes('view-transition') ||
+      keywordText.includes('page transition') ||
+      keywordText.includes('state change') ||
+      keywordText.includes('morph') ||
+      keywordText.includes('crossfade') ||
+      keywordText.includes('scoped transition')) {
+    if (feature.name.includes('View Transitions') || 
+        feature.properties.includes('view-transition-name') ||
+        feature.properties.includes('::view-transition')) {
+      score += 200;
     }
   }
   

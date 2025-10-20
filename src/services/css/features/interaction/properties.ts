@@ -2,7 +2,7 @@
  * Interaction Properties - CSS interactive features
  */
 
-import { CSSFeature, CSSFeatureCategory } from '../../types.js';
+import { CSSFeature, CSSFeatureCategory } from "../../types.js";
 
 export const INTERACTION_FEATURES: Record<string, CSSFeature> = {
   "scroll-snap": {
@@ -24,7 +24,8 @@ export const INTERACTION_FEATURES: Record<string, CSSFeature> = {
       "scroll-margin-bottom",
       "scroll-margin-left",
     ],
-    description: "Control scroll snapping behavior for carousels and scrollable content",
+    description:
+      "Control scroll snapping behavior for carousels and scrollable content",
     support_level: "good",
     mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap",
   },
@@ -37,37 +38,52 @@ export const INTERACTION_FEATURES: Record<string, CSSFeature> = {
       "::scroll-marker",
       "::column",
       ":target-current",
+      ":target-before",
+      ":target-after",
+      "scroll-marker-group",
     ],
-    description: "Latest CSS carousel with auto-generated buttons and markers using pseudo-elements",
+    description:
+      "Latest CSS carousel with auto-generated buttons and markers using pseudo-elements. No JavaScript needed! Includes :target-before and :target-after for advanced marker styling (Chrome 142+)",
     support_level: "limited",
-    mdn_url: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_overflow/CSS_carousels",
+    mdn_url:
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_overflow/CSS_carousels",
   },
 };
 
 export const INTERACTION_KEYWORDS = [
-  'scroll',
-  'snap',
-  'scroll-snap',
-  'scroll-snap-type',
-  'scroll-snap-align',
-  'scroll-snap-stop',
-  'carousel',
-  'slider',
-  'gallery',
-  'interaction',
-  'behavior',
-  'touch',
-  'swipe',
-  'navigation',
-  'buttons',
-  'markers',
-  'indicators',
-  'mandatory',
-  'proximity',
-  'start',
-  'center',
-  'end',
-  'always',
-  'padding',
-  'margin'
+  "scroll",
+  "snap",
+  "scroll-snap",
+  "scroll-snap-type",
+  "scroll-snap-align",
+  "scroll-snap-stop",
+  "carousel",
+  "slider",
+  "gallery",
+  "interaction",
+  "behavior",
+  "touch",
+  "swipe",
+  "navigation",
+  "buttons",
+  "markers",
+  "indicators",
+  "mandatory",
+  "proximity",
+  "start",
+  "center",
+  "end",
+  "always",
+  "scroll-button",
+  "scroll-marker",
+  "scroll-marker-group",
+  "target-current",
+  "target-before",
+  "target-after",
+  "pseudo-elements",
+  "auto-generated",
+  "dots",
+  "pagination",
+  "padding",
+  "margin",
 ];

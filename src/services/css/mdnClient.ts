@@ -488,7 +488,7 @@ export async function fetchBrowserSupportFromMDN(
     };
 
     return supportInfo;
-  } catch (error) {
+  } catch {
     // Fallback to static data
     return {
       overall_support: getBrowserSupportPercentage(cssProperty),
@@ -548,6 +548,15 @@ function getBrowserSupportPercentage(cssProperty: string): number {
     "::scroll-marker": 15,
     "::column": 15,
     ":target-current": 20,
+    ":target-before": 10, // Chrome 142+ only (experimental)
+    ":target-after": 10, // Chrome 142+ only (experimental)
+    "scroll-marker-group": 15,
+    "view-transition-name": 35, // Chrome 111+, Edge 111+
+    "::view-transition": 35,
+    "::view-transition-group()": 35,
+    "::view-transition-image-pair()": 35,
+    "::view-transition-old()": 35,
+    "::view-transition-new()": 35,
     "corner-shape": 5, // Experimental, very limited support
   };
 

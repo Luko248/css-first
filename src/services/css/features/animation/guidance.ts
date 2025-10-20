@@ -744,6 +744,346 @@ export const ANIMATION_GUIDANCE: Record<string, ImplementationGuidance> = {
   animation-timeline: card-animations;
   animation-range: entry 0% entry 100%;
 }`
+  },
+  'view-transition-name': {
+    basic_usage: '.element { view-transition-name: card; }',
+    best_practices: [
+      'Use unique view-transition-name values for each element',
+      'Root element automatically gets view-transition-name: root',
+      'Combine with document.startViewTransition() or element.startViewTransition() for scoped transitions (Chrome 140+)',
+      'Style transitions using ::view-transition pseudo-elements',
+      'Use @starting-style for entry animations',
+      'Consider accessibility - provide reduced motion alternatives',
+      'Works with CSS-only - no JavaScript needed for styling'
+    ],
+    fallbacks: [
+      'Use CSS transitions/animations for older browsers',
+      'Implement JavaScript-based transitions',
+      'Provide instant state changes',
+      'Use @supports for feature detection'
+    ],
+    example_code: `
+/* ✅ CSS VIEW TRANSITIONS - Smooth animated state changes */
+
+/* 1. BASIC DOCUMENT TRANSITION - Tag elements to participate */
+.card {
+  view-transition-name: card;
+}
+
+.header {
+  view-transition-name: header;
+}
+
+/* Root is automatically named "root" */
+:root {
+  view-transition-name: root;
+}
+
+/* 2. CUSTOMIZE THE TRANSITION - Style pseudo-elements */
+::view-transition-old(card),
+::view-transition-new(card) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-group(card) {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+/* 3. CUSTOM ANIMATIONS - Override default cross-fade */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes slide-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+::view-transition-old(card) {
+  animation: slide-down 0.4s ease-in;
+}
+
+::view-transition-new(card) {
+  animation: slide-up 0.4s ease-out;
+}
+
+/* 4. SCOPED VIEW TRANSITIONS (Chrome 140+) */
+/* Apply to container with contain: layout */
+.sidebar {
+  contain: layout;
+  /* Call element.startViewTransition() on this element */
+}
+
+.sidebar .nav-item {
+  view-transition-name: nav-item;
+}
+
+/* Scoped transition pseudo-elements get injected into .sidebar */
+.sidebar::view-transition {
+  /* Styles for the scoped transition root */
+}
+
+.sidebar::view-transition-group(nav-item) {
+  animation-duration: 0.3s;
+}
+
+/* 5. DIFFERENT TRANSITIONS FOR DIFFERENT GROUPS */
+/* Fast animations for small elements */
+::view-transition-group(icon) {
+  animation-duration: 0.2s;
+}
+
+/* Slower for large content areas */
+::view-transition-group(content) {
+  animation-duration: 0.6s;
+}
+
+/* 6. ADVANCED: CUSTOM EASING AND TIMING */
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scale effect for card transitions */
+@keyframes scale-up {
+  from {
+    transform: scale(0.8);
+  }
+}
+
+::view-transition-new(card) {
+  animation: scale-up 0.4s ease-out;
+}
+
+/* 7. WILDCARD SELECTOR - Style all groups */
+::view-transition-group(*) {
+  animation-duration: 0.4s;
+}
+
+/* 8. ISOLATE SPECIFIC GROUPS */
+::view-transition-image-pair(thumbnail) {
+  isolation: isolate;
+  mix-blend-mode: normal;
+}
+
+/* 9. DISABLE TRANSITION FOR SPECIFIC ELEMENTS */
+.no-transition {
+  view-transition-name: none;
+}
+
+/* 10. ENTRY ANIMATIONS with @starting-style */
+@starting-style {
+  .modal {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.modal {
+  view-transition-name: modal;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* 11. REAL-WORLD EXAMPLE: Image gallery */
+.gallery {
+  contain: layout; /* Enable scoped transitions */
+}
+
+.gallery-item {
+  view-transition-name: auto; /* Unique name per item */
+}
+
+.gallery::view-transition-old(gallery-item),
+.gallery::view-transition-new(gallery-item) {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+/* Morph effect */
+.gallery::view-transition-group(gallery-item) {
+  animation-duration: 0.5s;
+}
+
+/* 12. CONDITIONAL TRANSITIONS - Only for specific states */
+.card[data-state="expanded"] {
+  view-transition-name: expanded-card;
+}
+
+::view-transition-group(expanded-card) {
+  animation-duration: 0.6s;
+  z-index: 10; /* Ensure it's on top */
+}
+
+/* 13. MULTIPLE CONCURRENT SCOPED TRANSITIONS (Chrome 140+) */
+/* Navigation transition */
+nav {
+  contain: layout;
+}
+
+nav .item {
+  view-transition-name: nav-item;
+}
+
+/* Sidebar transition (can run simultaneously!) */
+.sidebar {
+  contain: layout;
+}
+
+.sidebar .widget {
+  view-transition-name: widget;
+}
+
+/* 14. ACCESSIBILITY - Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.001s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* 15. PROGRESSIVE ENHANCEMENT */
+@supports not (view-transition-name: none) {
+  /* Fallback for browsers without view transitions */
+  .card {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .card.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* 16. DEBUG - Visualize transition groups */
+::view-transition-group(*) {
+  /* outline: 2px solid red; */
+  /* Uncomment to see transition boundaries */
+}
+
+/* JavaScript usage (for reference):
+ * 
+ * // Document-scoped transition
+ * document.startViewTransition(() => {
+ *   // Make DOM changes here
+ *   element.classList.add('active');
+ * });
+ * 
+ * // Element-scoped transition (Chrome 140+)
+ * const nav = document.querySelector('nav');
+ * nav.startViewTransition(() => {
+ *   // Changes only within nav element
+ *   nav.innerHTML = newContent;
+ * });
+ */
+
+/* References:
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition
+ * Spec: https://drafts.csswg.org/css-view-transitions/
+ * Scoped: https://developer.chrome.com/blog/scoped-view-transitions-feedback
+ * Browser Support: Chrome 111+, Edge 111+ (document), Chrome 140+ (scoped)
+ */`
+  },
+  '::view-transition': {
+    basic_usage: '::view-transition { /* styles */ }',
+    best_practices: [
+      'Root pseudo-element for the entire transition tree',
+      'Use for global transition container styles',
+      'In scoped transitions (Chrome 140+), attached to the transition root element',
+      'Automatically positioned to cover the viewport or scoped container',
+      'Contains all ::view-transition-group() children'
+    ],
+    fallbacks: [
+      'Use container elements with CSS animations',
+      'Implement custom overlay solutions',
+      'Use @supports for feature detection'
+    ],
+    example_code: `
+/* Root of the view transition pseudo-element tree */
+::view-transition {
+  background-color: transparent;
+  /* Usually don't need to modify this */
+}
+
+/* SCOPED TRANSITION - Root attached to specific element */
+.modal::view-transition {
+  background: oklch(0% 0 0 / 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Ensure transitions are above other content */
+::view-transition {
+  z-index: 999;
+}
+
+/* Custom styling for the transition container */
+nav::view-transition {
+  border-radius: 8px;
+  overflow: hidden;
+}`
+  },
+  '::view-transition-group()': {
+    basic_usage: '::view-transition-group(card) { animation-duration: 0.5s; }',
+    best_practices: [
+      'Animates position and size between old and new states',
+      'Use () for specific named groups',
+      'Use (*) wildcard to target all groups',
+      'Default animation: interpolate size and position',
+      'Customize timing, easing, and duration',
+      'Each unique view-transition-name creates a group'
+    ],
+    fallbacks: [
+      'Use JavaScript for cross-browser morphing effects',
+      'Implement CSS transform-based animations',
+      'Use @supports for feature detection'
+    ],
+    example_code: `
+/* Target specific transition group */
+::view-transition-group(card) {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+/* Target all groups with wildcard */
+::view-transition-group(*) {
+  animation-duration: 0.4s;
+}
+
+/* Different timing for different groups */
+::view-transition-group(header) {
+  animation-duration: 0.3s;
+}
+
+::view-transition-group(content) {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Control z-index for layering */
+::view-transition-group(modal) {
+  z-index: 100;
+}
+
+::view-transition-group(background) {
+  z-index: 1;
+}
+
+/* Custom transform origin */
+::view-transition-group(thumbnail) {
+  transform-origin: top left;
+}
+
+/* Scoped transition groups */
+.gallery::view-transition-group(image) {
+  animation-duration: 0.5s;
+}`
   }
 };
 
