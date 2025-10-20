@@ -2,4 +2,4 @@ dist
 my_resources
 node_modules
 src/**/*.js
-.envrc
+.env
