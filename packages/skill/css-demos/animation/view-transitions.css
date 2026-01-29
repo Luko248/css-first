@@ -1,0 +1,105 @@
+/**
+ * Smooth Animations with View Transitions
+ *
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-class
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition-group
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition-image-pair
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition-old
+ * MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/::view-transition-new
+ *
+ * Baseline: 🔵 Newly Available
+ * Support: 90% (Chrome 111+, Safari 18+)
+ *
+ * Task: Add smooth page transitions
+ * Why: View Transitions API provides smooth, performant transitions without JavaScript
+ */
+
+/* Enable view transitions for navigation */
+@view-transition {
+  navigation: auto;
+  types: slide;
+}
+
+:root:active-view-transition {
+  view-transition-name: none;
+}
+
+:root::view-transition {
+  background: Canvas;
+}
+
+::view-transition-group(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+}
+
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+}
+
+/* Scoped transitions for specific elements */
+.card {
+  view-transition-name: card-transition;
+  view-transition-class: card-scope;
+}
+
+::view-transition-group(card-transition) {
+  animation-duration: 0.3s;
+}
+
+::view-transition-group(.card-scope) {
+  animation-timing-function: ease-in-out;
+}
+
+::view-transition-image-pair(card-transition) {
+  isolation: isolate;
+}
+
+/* Customize card-specific transition */
+::view-transition-old(card-transition) {
+  animation: slide-out 0.3s ease-out;
+}
+
+::view-transition-new(card-transition) {
+  animation: slide-in 0.3s ease-in;
+}
+
+:root:active-view-transition-type(slide)::view-transition-old(card-transition) {
+  animation-name: slide-out;
+}
+
+:root:active-view-transition-type(slide)::view-transition-new(card-transition) {
+  animation-name: slide-in;
+}
+
+@keyframes slide-out {
+  from {
+    translate: 0 0; /* Modern translate property */
+    opacity: 1;
+  }
+  to {
+    translate: -20px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    translate: 20px 0; /* Modern translate property */
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}

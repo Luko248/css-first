@@ -1,0 +1,52 @@
+/**
+ * CSS-Only Carousel (Minimal)
+ */
+
+.carousel {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+}
+
+.carousel::scroll-marker-group {
+  display: flex;
+}
+
+.carousel > div {
+  container-type: scroll-state;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  --content-opacity: 0;
+  --content-scale: 0.5;
+
+  @container scroll-state(snapped: inline) {
+    --content-opacity: 1;
+    --content-scale: 1;
+  }
+}
+
+.carousel > div::scroll-marker {
+  content: " ";
+  display: block;
+}
+
+.carousel > div > * {
+  opacity: var(--content-opacity, 1);
+  scale: var(--content-scale, 1);
+}
+
+.carousel > div::scroll-marker:target-current {
+  background: currentColor;
+}
+
+.carousel > div::scroll-marker:target-before {
+  scale: 0.5;
+}
+
+.carousel > div::scroll-marker:target-after {
+  scale: 0.5;
+  opacity: 0.5;
+}
